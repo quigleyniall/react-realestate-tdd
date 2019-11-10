@@ -15,6 +15,7 @@
   "scripts": {
     "start": "react-scripts start",
     "lint": "eslint src/*.{ts,tsx}",
+    "e2e": "cypress open",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -37,6 +38,7 @@
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^2.6.1",
     "@typescript-eslint/parser": "^2.6.1",
+    "cypress": "^3.6.1",
     "eslint": "^6.6.0",
     "eslint-config-prettier": "^6.5.0",
     "eslint-plugin-prettier": "^3.1.1",
