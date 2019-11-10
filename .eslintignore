@@ -2,3 +2,4 @@ src/serviceWorker.ts
 src/*.test.tsx
 cypress/
 src/test
+jest.config.js
