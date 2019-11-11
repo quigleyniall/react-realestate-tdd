@@ -1,0 +1,6 @@
+src/serviceWorker.ts
+src/components/**/*.test.tsx
+src/*.test.tsx
+cypress/
+src/test
+jest.config.js
