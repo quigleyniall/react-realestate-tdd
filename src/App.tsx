@@ -1,4 +1,5 @@
 import React from 'react';
+import SearchBar from './components/SearchBar';
 import './App.css';
 
 class App extends React.Component<{}, { something: string }> {
@@ -11,8 +12,10 @@ class App extends React.Component<{}, { something: string }> {
 
   render() {
     return (
-      <div data-test="app" className="App">
-        <div data-test="hello">Hello world</div>
+      <div data-test="app" className="row">
+        <div className="col-md-12">
+          <SearchBar />
+        </div>
       </div>
     );
   }

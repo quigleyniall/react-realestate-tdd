@@ -1,5 +1,5 @@
 src/serviceWorker.ts
-src/*.test.tsx
+src/components/**/*.test.tsx
 cypress/
 src/test
 jest.config.js
