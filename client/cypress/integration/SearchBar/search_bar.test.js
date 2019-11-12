@@ -3,8 +3,6 @@ describe('test search bar', () => {
     const location = 'London';
     cy.visit('http://localhost:3000');
     cy.get("[data-test='search-bar']").type(location);
-    cy.get("[data-test='search-button']").click();
-    
   });
 
 })
