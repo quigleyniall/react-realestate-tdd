@@ -3,6 +3,7 @@ import { shallow } from 'enzyme';
 import PropertyListing from './PropertyListing';
 import { storeFactory, findByTestAttr } from '../../test/testUtils';
 import { sampleResponse } from '../../test/sampleResponse';
+import Listing from '../../components/Listing';
 
 const setup = (initialState = {}) => {
   return shallow(<PropertyListing store={storeFactory(initialState)}/>).dive().dive();
@@ -10,18 +11,39 @@ const setup = (initialState = {}) => {
 
 describe('listings', () => {
   describe('no listings in state', () => {
+    test('renders without error', () => {
+      const wrapper = setup({ listings: sampleResponse.response.listings });
+      const results = findByTestAttr(wrapper, 'listing-results');
+      expect(results.length).toBe(1);
+    })
+
     test('no listings found text appears', () => {
       const wrapper = setup();
       const noResults = findByTestAttr(wrapper, 'no-results');
-      expect(noResults.text()).toBe('No Results Found!')
+      expect(noResults.text().length).not.toBe(0);
     })
   })
 
   describe('listings in state', () => {
-    test('listings appear', () => {
-      const wrapper = setup({ listings: sampleResponse.response.listings });
+    let wrapper;
+    let listings;
+
+    beforeEach(() => {
+      listings = sampleResponse.response.listings;
+      wrapper = setup({ listings });
+    })
+    test('renders without error', () => {
       const results = findByTestAttr(wrapper, 'listing-results');
-      expect(results.length).toBe(2);
+      expect(results.length).toBe(1);
+    })
+
+    test('correct amount of listings appear', () => {
+      expect(wrapper.find(Listing).length).toBe(listings.length);
+    })
+
+    test('"no listings found!" text does not appear', () => {
+      const noResults = findByTestAttr(wrapper, 'no-results');
+      expect(noResults.length).toBe(0)
     })
   })
 })

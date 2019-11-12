@@ -7,7 +7,7 @@ interface ListingProps {
 }
 
 const Listing = ({ listing }: ListingProps) => (
-  <div>{listing.price} and {listing.img_url}</div>
+  <div data-test="listing">{listing.price} and {listing.img_url}</div>
 )
 
 Listing.propTypes = {

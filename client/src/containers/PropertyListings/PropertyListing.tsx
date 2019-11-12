@@ -1,15 +1,26 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { IListing } from '../../interfaces'
+import Listing from '../../components/Listing';
 
 interface IProps {
-  listings: [IListing];
+  listings: IListing[];
 }
 
 export class UnconnectedPropertyListing extends React.Component<IProps> {
+  renderSearchResults = () => {
+    const { listings } = this.props;
+    if (listings.length === 0) {
+      return <div data-test="no-results">No Results Found!</div>;
+    }
+    return listings.map(listing => (
+      <Listing key={listing.img_url} listing={listing} />
+    ))
+  }
+  
   render() {
     return (
-      <div>Hello World</div>
+      <div data-test="listing-results">{this.renderSearchResults()}</div>
     );
   }
 }
