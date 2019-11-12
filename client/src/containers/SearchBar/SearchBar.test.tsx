@@ -4,7 +4,7 @@ import SearchBar, { UnconnectedSearchBar } from './SearchBar';
 import { findByTestAttr, storeFactory } from '../../test/testUtils';
 
 
-const setup = (initialState = {}) => {  
+const setup = (initialState = {}) => {
   return shallow(<SearchBar store={storeFactory(initialState)} />).dive();
 }
 

@@ -2,15 +2,15 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { searchListings } from '../../store/actions';
 
-interface SearchBarProps {
+interface IProps {
   searchListings: Function;
 }
 
-interface SearchBarState {
+interface IState {
   location: string
 }
 
-export class UnconnectedSearchBar extends React.Component<SearchBarProps, SearchBarState> {
+export class UnconnectedSearchBar extends React.Component<IProps, IState> {
   constructor(props) {
     super(props);
     this.state = {
@@ -25,7 +25,7 @@ export class UnconnectedSearchBar extends React.Component<SearchBarProps, Search
   handleSubmit = async () => {
     const { location } = this.state;
     this.props.searchListings(location);
-    this.setState({ location: '' }, () => console.log(this.state));    
+    this.setState({ location: '' });    
   };
 
   render() {
