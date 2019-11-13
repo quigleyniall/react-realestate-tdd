@@ -1,9 +1,8 @@
 import React from 'react';
-import SearchBar from './containers/SearchBar';
-import './App.css';
-import PropertyListing from './containers/PropertyListings/PropertyListing';
+import SearchBar from '../../containers/SearchBar';
+import PropertyListing from '../../containers/PropertyListings/PropertyListing';
 
-const App = () => (
+const Home = () => (
   <div data-test="app" className="container">
     <div className="row">
       <div className="col-md-12 p-5">
@@ -16,4 +15,4 @@ const App = () => (
   </div>
 );
 
-export default App;
+export default Home;
