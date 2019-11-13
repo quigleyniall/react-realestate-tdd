@@ -53,5 +53,38 @@ describe('search listing action creator called', () => {
   test('input box is clear when button is pressed', () => {
     expect(wrapper.state('location')).toBe('');
   })
+});
+
+describe('test button group', () => {
+  describe('rent button clicked', () => {
+    test('rent button has active class', () => {
+      const wrapper = setup();
+      wrapper.setState({ listingType: 'Rent' });
+      const rentButton = findByTestAttr(wrapper, 'rent-button');
+      expect(rentButton.hasClass('active')).toBeTruthy();
+    })
+
+    test('buy button has no active class', () => {
+      const wrapper = setup();
+      wrapper.setState({ listingType: 'Rent' });
+      const buyButton = findByTestAttr(wrapper, 'buy-button');
+      expect(buyButton.hasClass('active')).not.toBeTruthy();
+    })
+  })
+  describe('buy button clicked', () => {
+    test('buy button has active class', () => {
+      const wrapper = setup();
+      wrapper.setState({ listingType: 'Buy' });
+      const buyButton = findByTestAttr(wrapper, 'buy-button');
+      expect(buyButton.hasClass('active')).toBeTruthy();
+    })
+
+    test('rent button has no active class', () => {
+      const wrapper = setup();
+      wrapper.setState({ listingType: 'Buy' });
+      const rentButton = findByTestAttr(wrapper, 'rent-button');
+      expect(rentButton.hasClass('active')).not.toBeTruthy();
+    })
+  })
 })
 

@@ -8,10 +8,10 @@ api.use(cors())
 api.use(bodyParser.urlencoded({ extended: true }));
 api.use(bodyParser.json({ limit: '5mb' }));
 
-api.get('/:location', async (req, res) => {
-  const { location } = req.params;
+api.get('/:type/:location', async (req, res) => {
+  const { location, type } = req.params;
   const request = await axios.get(`
-    https://api.nestoria.co.uk/api?encoding=json&pretty=1&action=search_listings&country=uk&listing_type=buy&place_name=${location}
+    https://api.nestoria.co.uk/api?encoding=json&pretty=1&action=search_listings&country=uk&listing_type=${type}&place_name=${location}
   `);
   const response = await request.data;  
   return res.json(response);

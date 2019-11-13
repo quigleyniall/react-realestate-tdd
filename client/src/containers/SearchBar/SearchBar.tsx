@@ -7,14 +7,16 @@ interface IProps {
 }
 
 interface IState {
-  location: string
+  location: string;
+  listingType: string
 }
 
 export class UnconnectedSearchBar extends React.Component<IProps, IState> {
   constructor(props) {
     super(props);
     this.state = {
-      location: ''
+      location: '',
+      listingType: 'Rent'
     };
   }
   
@@ -24,22 +26,45 @@ export class UnconnectedSearchBar extends React.Component<IProps, IState> {
 
   handleSubmit = async () => {
     const { location } = this.state;
-    this.props.searchListings(location);
+    await this.props.searchListings(location);
     this.setState({ location: '' });    
   };
 
   render() {
-    const { location } = this.state;
+    const { location, listingType } = this.state;
     return (
-      <div className="container">
-        <div data-test="search-form" className="row justify-content-md-center">
-          <div className="form-group col-md-9">
+        <div data-test="search-form">
+          <div className="row justify-content-center">
+            <div className="btn-group btn-group-lg" role="group">
+              <button 
+              type="button"
+              data-test="rent-button"
+              className={listingType === 'Rent' ? (
+                "btn btn-outline-primary border active") : ("btn btn-outline-primary border")
+              }
+              onClick={() => this.setState({ listingType: 'Rent'})}>
+                Rent
+              </button>
+              <button 
+              type="button" 
+              data-test="buy-button"
+              className={listingType === 'Buy' ? (
+                "btn btn-outline-primary border active") : ("btn btn-outline-primary border")
+              }
+              onClick={() => this.setState({ listingType: 'Buy'})}>
+                Buy
+              </button>
+            </div>
+          </div>
+          <div className="row justify-content-center align-items-center">
+          <div className="col-md-9 border p-3">
             <input
               data-test="search-bar"
               type="text"
               className="form-control"
               onChange={this.handleChange}
               name="location"
+              placeholder="Search UK listing"
               value={location}
             />
           </div>
@@ -53,8 +78,8 @@ export class UnconnectedSearchBar extends React.Component<IProps, IState> {
               Search
             </button>
           </div>
+          </div>
         </div>
-      </div>
     );
   }
 }
