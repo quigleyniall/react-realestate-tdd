@@ -1,0 +1,15 @@
+.background {  
+  background-image: url(https://www.zillowstatic.com/s3/homepage/static/_Desktop_overlay_2.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100%;
+  height: 100vh;
+
+  @media screen and (min-width: 321px){
+    background-image: url(https://www.zillowstatic.com/s3/homepage/static/_Mobile_overlay.jpg);
+  }
+  @media screen and (min-width: 721px){
+    background-image: url(https://www.zillowstatic.com/s3/homepage/static/_Desktop_overlay_2.jpg);
+  }
+}

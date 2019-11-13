@@ -8,7 +8,7 @@ interface IProps {
 
 interface IState {
   location: string;
-  listingType: string
+  listingType: string;
 }
 
 export class UnconnectedSearchBar extends React.Component<IProps, IState> {
@@ -19,7 +19,7 @@ export class UnconnectedSearchBar extends React.Component<IProps, IState> {
       listingType: 'rent'
     };
   }
-  
+
   handleChange = e => {
     this.setState({ location: e.target.value });
   };
@@ -27,36 +27,49 @@ export class UnconnectedSearchBar extends React.Component<IProps, IState> {
   handleSubmit = async () => {
     const { listingType, location } = this.state;
     await this.props.searchListings(listingType, location);
-    this.setState({ location: '' });    
+    this.setState({ location: '' });
   };
 
   render() {
     const { location, listingType } = this.state;
     return (
-        <div data-test="search-form">
-          <div className="row justify-content-center">
-            <div className="btn-group btn-group-lg" role="group">
-              <button 
+      <div className="container">
+        <h2 className="text-light text-center">Reimagine Home</h2>
+        <h5 className="text-light text-center">
+          We&apos;ll help you fnd a place you will love
+        </h5>
+        <div
+          data-test="search-form"
+          className="row justify-content-center align-items-center"
+        >
+          <div className="btn-group btn-group-lg" role="group">
+            <button
               type="button"
               data-test="rent-button"
-              className={listingType === 'rent' ? (
-                "btn btn-outline-primary border active") : ("btn btn-outline-primary border")
+              className={
+                listingType === 'rent'
+                  ? 'btn btn-outline-primary border active'
+                  : 'btn btn-outline-primary border'
               }
-              onClick={() => this.setState({ listingType: 'rent'})}>
-                Rent
-              </button>
-              <button 
-              type="button" 
+              onClick={() => this.setState({ listingType: 'rent' })}
+            >
+              Rent
+            </button>
+            <button
+              type="button"
               data-test="buy-button"
-              className={listingType === 'buy' ? (
-                "btn btn-outline-primary border active") : ("btn btn-outline-primary border")
+              className={
+                listingType === 'buy'
+                  ? 'btn btn-outline-primary border active'
+                  : 'btn btn-outline-primary border'
               }
-              onClick={() => this.setState({ listingType: 'buy'})}>
-                Buy
-              </button>
-            </div>
+              onClick={() => this.setState({ listingType: 'buy' })}
+            >
+              Buy
+            </button>
           </div>
-          <div className="row justify-content-center align-items-center">
+        </div>
+        <div className="row justify-content-center align-items-center">
           <div className="col-md-9 border p-3">
             <input
               data-test="search-bar"
@@ -78,8 +91,8 @@ export class UnconnectedSearchBar extends React.Component<IProps, IState> {
               Search
             </button>
           </div>
-          </div>
         </div>
+      </div>
     );
   }
 }

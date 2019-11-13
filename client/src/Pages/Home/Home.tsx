@@ -1,17 +1,14 @@
 import React from 'react';
 import SearchBar from '../../containers/SearchBar';
 import PropertyListing from '../../containers/PropertyListings/PropertyListing';
+import './Home.scss';
 
 const Home = () => (
-  <div data-test="app" className="container">
-    <div className="row">
-      <div className="col-md-12 p-5">
+  <div data-test="app" className="wrapper">
+    <div className="d-flex background align-items-center">
       <SearchBar />
     </div>
-    <div className="p-1">
-      <PropertyListing />
-    </div>  
-    </div> 
+    <PropertyListing />
   </div>
 );
 

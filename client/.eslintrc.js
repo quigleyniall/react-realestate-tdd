@@ -21,6 +21,7 @@ module.exports =  {
   rules:  {
     "@typescript-eslint/explicit-function-return-type": 0,
     "no-console": 1,
+    "@typescript-eslint/interface-name-prefix": 0
     // Place to specify ESLint rules. Can be used to overwrite rules specified from the extended configs
     // e.g. "@typescript-eslint/explicit-function-return-type": "off",
   },
