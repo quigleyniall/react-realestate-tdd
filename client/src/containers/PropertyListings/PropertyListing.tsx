@@ -7,7 +7,7 @@ import { StoreState } from '../../store/rootReducer';
 interface IProps {
   listings: ListingResponse[];
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  store: any;
+  store?: any;
 }
 
 export class UnconnectedPropertyListing extends React.Component<IProps> {
