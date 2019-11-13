@@ -1,10 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { IListing } from '../../interfaces';
+import { ListingResponse } from '../../interfaces';
 import Listing from '../../components/Listing';
+import { StoreState } from '../../store/rootReducer';
 
 interface IProps {
-  listings: IListing[];
+  listings: ListingResponse[];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  store: any;
 }
 
 export class UnconnectedPropertyListing extends React.Component<IProps> {
@@ -29,6 +32,10 @@ export class UnconnectedPropertyListing extends React.Component<IProps> {
   }
 }
 
-const mapStateToProps = ({ listings }) => ({ listings });
+const mapStateToProps = ({
+  listings
+}: StoreState): { listings: ListingResponse[] } => ({
+  listings
+});
 
 export default connect(mapStateToProps, null)(UnconnectedPropertyListing);

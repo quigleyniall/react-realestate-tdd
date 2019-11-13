@@ -6,6 +6,8 @@ import Button from '../../components/Button';
 
 interface IProps {
   searchListings: Function;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  store?: any;
 }
 
 interface IState {
@@ -14,7 +16,7 @@ interface IState {
 }
 
 export class UnconnectedSearchBar extends React.Component<IProps, IState> {
-  constructor(props) {
+  constructor(props: IProps) {
     super(props);
     this.state = {
       location: '',
@@ -22,8 +24,8 @@ export class UnconnectedSearchBar extends React.Component<IProps, IState> {
     };
   }
 
-  handleChange = e => {
-    this.setState({ location: e.target.value });
+  handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({ location: event.currentTarget.value });
   };
 
   handleSubmit = async () => {

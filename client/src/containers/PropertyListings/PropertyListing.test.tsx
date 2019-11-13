@@ -5,7 +5,7 @@ import { storeFactory, findByTestAttr } from '../../test/testUtils';
 import { sampleResponse } from '../../test/sampleResponse';
 import Listing from '../../components/Listing';
 
-const setup = (initialState = {}) => {
+const setup = (initialState = { listings: []}) => {
   return shallow(<PropertyListing store={storeFactory(initialState)} />)
     .dive()
     .dive();

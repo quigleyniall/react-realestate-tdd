@@ -1,7 +1,12 @@
 import { combineReducers } from 'redux';
 import listingsReducer from './reducers/listingsReducer';
+import { ListingResponse } from '../interfaces';
 
-const rootReducer = combineReducers({
+export interface StoreState {
+  listings?: ListingResponse[];
+}
+
+const rootReducer = combineReducers<StoreState>({
   listings: listingsReducer
 });
 

@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { IListing } from '../../interfaces';
+import { ListingResponse } from '../../interfaces';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBed, faBath } from '@fortawesome/free-solid-svg-icons';
 
 interface ListingProps {
-  listing: IListing;
+  listing: ListingResponse;
 }
 
 const Listing = ({ listing }: ListingProps) => {

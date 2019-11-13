@@ -4,7 +4,7 @@ import SearchBar, { UnconnectedSearchBar } from './SearchBar';
 import { findByTestAttr, storeFactory } from '../../test/testUtils';
 
 
-const setup = (initialState = {}) => {
+const setup = (initialState = { listings: [] }) => {
   return shallow(<SearchBar store={storeFactory(initialState)} />).dive();
 }
 
@@ -16,7 +16,7 @@ describe.skip('redux props', () => {
   })
   
   test('search listing action creator is a function prop', () => {
-    const wrapper: any = setup({});
+    const wrapper: any = setup();
     const searchListingProp = wrapper.instance().props.searchListings;
     expect(searchListingProp).toBeInstanceOf(Function);
   });
