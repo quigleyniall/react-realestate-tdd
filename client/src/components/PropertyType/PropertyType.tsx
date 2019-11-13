@@ -4,7 +4,7 @@ import Button from '../Button';
 import { Property } from '../../interfaces';
 
 const PropertyType = (props: Property) => (
-  <div className="card text-center" style={{ width: '18rem' }}>
+  <div className="card text-center" style={{ width: '20rem' }}>
     <img src={props.image} className="card-img-top" alt={props.image} />
     <div className="card-body">
       <h5 data-test="title" className="card-title">

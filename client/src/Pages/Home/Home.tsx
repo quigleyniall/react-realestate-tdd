@@ -11,17 +11,15 @@ const Home = () => {
       <div className="d-flex background align-items-center">
         <SearchBar />
       </div>
-      <div className="container">
-        <div className="p-5">
-          <h2 className="text-center">
-            <strong>We have the most listings and constant updates.</strong>
-          </h2>
-          <h2 className="text-center">
-            <strong>So you’ll never miss out.</strong>
-          </h2>
-        </div>
+      <div className="container p-5">
+        <h2 className="text-center">
+          <strong>We have the most listings and constant updates.</strong>
+        </h2>
+        <h2 className="text-center">
+          <strong>So you’ll never miss out.</strong>
+        </h2>
       </div>
-      <div className="container d-flex justify-content-between">
+      <div className="container pb-5 d-flex justify-content-between">
         {propertyTypeInfo.map((property: Property) => (
           <PropertyType
             key={property.title}
