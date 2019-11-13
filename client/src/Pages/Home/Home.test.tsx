@@ -1,8 +1,8 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import Home from './Pages/Home/Home';
-import { findByTestAttr } from './test/testUtils';
+import Home from './Home';
+import { findByTestAttr } from '../../test/testUtils';
 
 test('renders without crashing', () => {
   const wrapper = shallow(<Home />);

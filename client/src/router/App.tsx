@@ -1,17 +1,16 @@
-import  React from 'react';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route
-} from 'react-router-dom';
+import React from 'react';
+import { Router, Switch, Route } from 'react-router-dom';
+import history from './history';
 import Home from '../Pages/Home';
+import Listings from '../Pages/Listings';
 
 const App = () => (
-  <Router>
+  <Router history={history}>
     <Switch>
-      <Route path='/' component={Home} />
+      <Route exact path="/" component={Home} />
+      <Route path="/listings/:type/:location" component={Listings} />
     </Switch>
   </Router>
-)
+);
 
 export default App;

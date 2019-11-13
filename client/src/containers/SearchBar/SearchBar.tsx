@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { searchListings } from '../../store/actions';
+import history from '../../router/history';
 import Button from '../../components/Button';
 
 interface IProps {
@@ -27,8 +28,9 @@ export class UnconnectedSearchBar extends React.Component<IProps, IState> {
 
   handleSubmit = async () => {
     const { listingType, location } = this.state;
-    await this.props.searchListings(listingType, location);
-    this.setState({ location: '' });
+    // await this.props.searchListings(listingType, location);
+    // this.setState({ location: '' });
+    history.push(`/listings/${listingType}/${location}`);
   };
 
   render() {
