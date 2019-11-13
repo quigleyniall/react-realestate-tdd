@@ -10,7 +10,8 @@ const defaultProps = {
   text: 'Click me',
   onPress: onPressMockFn,
   btnClass: 'primary',
-  active: false
+  active: false,
+  test: 'search'
 }
 
 const setup = (props = {}) => {
@@ -24,7 +25,7 @@ describe('button test', () => {
 
   beforeEach(() => {
     wrapper = setup();
-    buttonElement = findByTestAttr(wrapper, 'button');
+    buttonElement = findByTestAttr(wrapper, 'search-button');
   })
   test('button renders without error', () => {
     expect(buttonElement.length).toBe(1);
@@ -37,7 +38,7 @@ describe('button test', () => {
   });
 
   test('check props sent to button', () => {
-    const expectedProps = { onPress: jest.fn(), text: 'click me', btnClass: 'primary' }; 
+    const expectedProps = { onPress: jest.fn(), text: 'click me', btnClass: 'primary', test: 'search' }; 
     checkProps(Button, expectedProps);
   });
 
@@ -51,7 +52,7 @@ describe('button test', () => {
 
   test('button has active class when active is true', () => {
     const wrapper = setup({ active: true });
-    const buttonElement = findByTestAttr(wrapper, 'button');
+    const buttonElement = findByTestAttr(wrapper, 'search-button');
     expect(buttonElement.hasClass('active')).toBe(true);
   });
 

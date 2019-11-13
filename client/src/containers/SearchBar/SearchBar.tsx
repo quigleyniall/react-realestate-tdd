@@ -35,8 +35,10 @@ export class UnconnectedSearchBar extends React.Component<IProps, IState> {
     const { location, listingType } = this.state;
     return (
       <div className="container">
-        <h2 className="text-light text-center">Reimagine Home</h2>
-        <h5 className="text-light text-center">
+        <h2 className="text-light text-center" style={{ fontSize: '4rem' }}>
+          Reimagine Home
+        </h2>
+        <h5 className="text-light text-center mb-4">
           We&apos;ll help you fnd a place you will love
         </h5>
         <div
@@ -46,6 +48,7 @@ export class UnconnectedSearchBar extends React.Component<IProps, IState> {
           <div className="btn-group btn-group-lg" role="group">
             <Button
               data-test="rent-button"
+              test="rent"
               btnClass="primary"
               active={listingType === 'rent'}
               onPress={() => this.setState({ listingType: 'rent' })}
@@ -53,6 +56,7 @@ export class UnconnectedSearchBar extends React.Component<IProps, IState> {
             />
             <Button
               data-test="buy-button"
+              test="buy"
               btnClass="primary"
               active={listingType === 'buy'}
               onPress={() => this.setState({ listingType: 'buy' })}
@@ -75,6 +79,7 @@ export class UnconnectedSearchBar extends React.Component<IProps, IState> {
           <div className="col-auto">
             <Button
               data-test="search-button"
+              test="search"
               btnClass="primary"
               onPress={this.handleSubmit}
               text="Search"

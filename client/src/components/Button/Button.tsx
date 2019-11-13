@@ -6,11 +6,12 @@ interface IProps {
   text: string;
   active?: boolean;
   btnClass: string;
+  test: string;
 }
 
-const Button = ({ onPress, text, active, btnClass }: IProps) => (
+const Button = ({ onPress, text, active, btnClass, test }: IProps) => (
   <button
-    data-test="button"
+    data-test={`${test}-button`}
     type="button"
     className={active ? `btn btn-${btnClass} active` : `btn btn-${btnClass}`}
     style={{ textTransform: 'capitalize' }}
@@ -24,7 +25,8 @@ Button.propTypes = {
   onPress: PropTypes.func.isRequired,
   text: PropTypes.string.isRequired,
   active: PropTypes.bool,
-  btnClass: PropTypes.string.isRequired
+  btnClass: PropTypes.string.isRequired,
+  test: PropTypes.string.isRequired
 };
 
 export default Button;

@@ -19,7 +19,7 @@ describe('redux props', () => {
     const wrapper = setup({});
     const searchListingProp = wrapper.instance().props.searchListings;
     expect(searchListingProp).toBeInstanceOf(Function);
-  })
+  });
 })
 
 
