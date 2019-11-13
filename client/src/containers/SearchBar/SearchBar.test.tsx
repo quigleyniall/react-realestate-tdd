@@ -16,7 +16,7 @@ describe.skip('redux props', () => {
   })
   
   test('search listing action creator is a function prop', () => {
-    const wrapper = setup({});
+    const wrapper: any = setup({});
     const searchListingProp = wrapper.instance().props.searchListings;
     expect(searchListingProp).toBeInstanceOf(Function);
   });

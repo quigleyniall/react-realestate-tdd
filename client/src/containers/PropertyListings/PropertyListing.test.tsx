@@ -52,7 +52,7 @@ describe('listings', () => {
 
 describe('redux properties', () => {
   test('has access to listings props', () => {
-    const wrapper = setup({ listings: sampleResponse.response.listings });
+    const wrapper: any = setup({ listings: sampleResponse.response.listings });
     const listingProp = wrapper.instance().props.listings;
     expect(listingProp).toBe(sampleResponse.response.listings);
   });
