@@ -8,7 +8,7 @@ const setup = (initialState = {}) => {
   return shallow(<SearchBar store={storeFactory(initialState)} />).dive();
 }
 
-describe('redux props', () => {
+describe.skip('redux props', () => {
   test('renders without error', () => {
     const wrapper = setup();
     const component = findByTestAttr(wrapper, 'search-form');
