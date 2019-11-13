@@ -1,5 +1,6 @@
 src/serviceWorker.ts
 src/components/**/*.test.tsx
+src/containers/**/*.test.tsx
 src/*.test.tsx
 cypress/
 src/test

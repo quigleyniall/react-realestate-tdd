@@ -13,6 +13,7 @@ const Button = ({ onPress, text, active, btnClass }: IProps) => (
     data-test="button"
     type="button"
     className={active ? `btn btn-${btnClass} active` : `btn btn-${btnClass}`}
+    style={{ textTransform: 'capitalize' }}
     onClick={onPress}
   >
     {text}

@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { IListing } from '../../interfaces'
+import { IListing } from '../../interfaces';
 import Listing from '../../components/Listing';
 
 interface IProps {
@@ -15,9 +15,9 @@ export class UnconnectedPropertyListing extends React.Component<IProps> {
     }
     return listings.map(listing => (
       <Listing key={listing.img_url} listing={listing} />
-    ))
-  }
-  
+    ));
+  };
+
   render() {
     return (
       <div data-test="listing-results" className="container">

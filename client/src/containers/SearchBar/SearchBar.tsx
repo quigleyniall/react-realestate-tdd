@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { searchListings } from '../../store/actions';
+import Button from '../../components/Button';
 
 interface IProps {
   searchListings: Function;
@@ -43,30 +44,20 @@ export class UnconnectedSearchBar extends React.Component<IProps, IState> {
           className="row justify-content-center align-items-center"
         >
           <div className="btn-group btn-group-lg" role="group">
-            <button
-              type="button"
+            <Button
               data-test="rent-button"
-              className={
-                listingType === 'rent'
-                  ? 'btn btn-outline-primary border active'
-                  : 'btn btn-outline-primary border'
-              }
-              onClick={() => this.setState({ listingType: 'rent' })}
-            >
-              Rent
-            </button>
-            <button
-              type="button"
+              btnClass="primary"
+              active={listingType === 'rent'}
+              onPress={() => this.setState({ listingType: 'rent' })}
+              text="rent"
+            />
+            <Button
               data-test="buy-button"
-              className={
-                listingType === 'buy'
-                  ? 'btn btn-outline-primary border active'
-                  : 'btn btn-outline-primary border'
-              }
-              onClick={() => this.setState({ listingType: 'buy' })}
-            >
-              Buy
-            </button>
+              btnClass="primary"
+              active={listingType === 'buy'}
+              onPress={() => this.setState({ listingType: 'buy' })}
+              text="buy"
+            />
           </div>
         </div>
         <div className="row justify-content-center align-items-center">
@@ -82,14 +73,12 @@ export class UnconnectedSearchBar extends React.Component<IProps, IState> {
             />
           </div>
           <div className="col-auto">
-            <button
+            <Button
               data-test="search-button"
-              className="btn btn-primary"
-              onClick={this.handleSubmit}
-              type="button"
-            >
-              Search
-            </button>
+              btnClass="primary"
+              onPress={this.handleSubmit}
+              text="Search"
+            />
           </div>
         </div>
       </div>
