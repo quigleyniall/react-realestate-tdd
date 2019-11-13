@@ -11,6 +11,7 @@ interface IProps {
 const Button = ({ onPress, text, active, btnClass }: IProps) => (
   <button
     data-test="button"
+    type="button"
     className={active ? `btn btn-${btnClass} active` : `btn btn-${btnClass}`}
     onClick={onPress}
   >
