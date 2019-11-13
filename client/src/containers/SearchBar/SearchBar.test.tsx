@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+import { shallow } from 'enzyme';
 import SearchBar, { UnconnectedSearchBar } from './SearchBar';
 import { findByTestAttr, storeFactory } from '../../test/testUtils';
 
@@ -62,49 +62,54 @@ describe('search listing action creator called', () => {
 });
 
 describe('test button group', () => {  
-    test('rent button changes listingType to rent', () => {
-      const wrapper = shallow(<UnconnectedSearchBar searchListings={jest.fn() } />);
+  describe('original state is buy', () => {
+    let wrapper;
+    let rentButton;
+    let buyButton;
+
+    beforeEach(() => {
+      wrapper = shallow(<UnconnectedSearchBar searchListings={jest.fn() } />);
       wrapper.setState({ listingType: 'buy' });
-      const rentButton = findByTestAttr(wrapper, 'rent-button').dive();
+      rentButton = findByTestAttr(wrapper, 'rent-button').dive();
+      buyButton = findByTestAttr(wrapper, 'buy-button').dive();
+    })
+    
+    test('rent button changes listingType to rent', () => {
       rentButton.simulate('click');
       const listingType = wrapper.state('listingType')
       expect(listingType).toBe('rent')
     })
 
-    test('buy button changes listingType to buy', () => {
-      const wrapper = shallow(<UnconnectedSearchBar searchListings={jest.fn() } />);
-      wrapper.setState({ listingType: 'rent' });
-      const buyButton = findByTestAttr(wrapper, 'buy-button').dive();
-      buyButton.simulate('click');
-      const listingType = wrapper.state('listingType')
-      expect(listingType).toBe('buy')
-    });
-
-    test('rent button has active class when listingType=Rent', () => {
-      const wrapper = shallow(<UnconnectedSearchBar searchListings={jest.fn() } />);
-      wrapper.setState({ listingType: 'rent' });
-      const rentButton = findByTestAttr(wrapper, 'rent-button').dive();
-      expect(rentButton.hasClass('active')).toBeTruthy();
-    })
-
     test('rent button doesnt have active class when listingType=buy', () => {
-      const wrapper = shallow(<UnconnectedSearchBar searchListings={jest.fn() } />);
-      wrapper.setState({ listingType: 'buy' });
-      const rentButton = findByTestAttr(wrapper, 'rent-button').dive();
       expect(rentButton.hasClass('active')).not.toBeTruthy();
     })
 
     test('buy button has active class when listingType=Buy', () => {
-      const wrapper = shallow(<UnconnectedSearchBar searchListings={jest.fn() } />);
-      wrapper.setState({ listingType: 'buy' });
-      const buyButton = findByTestAttr(wrapper, 'buy-button').dive();
       expect(buyButton.hasClass('active')).toBeTruthy();
     })
-    test('buy button doesnt have active class when listingType=Rent', () => {
-      const wrapper = shallow(<UnconnectedSearchBar searchListings={jest.fn() } />);
-      wrapper.setState({ listingType: 'rent' });
-      const buyButton = findByTestAttr(wrapper, 'buy-button').dive();
-      expect(buyButton.hasClass('active')).not.toBeTruthy();
+
+    describe('original state is rent', () => {
+      beforeEach(() => {
+        wrapper = shallow(<UnconnectedSearchBar searchListings={jest.fn() } />);
+        wrapper.setState({ listingType: 'rent' });
+        rentButton = findByTestAttr(wrapper, 'rent-button').dive();
+        buyButton = findByTestAttr(wrapper, 'buy-button').dive();
+      })
+
+      test('buy button changes listingType to buy', () => {     
+        buyButton.simulate('click');
+        const listingType = wrapper.state('listingType')
+        expect(listingType).toBe('buy')
+      });
+
+      test('rent button has active class when listingType=Rent', () => {
+        expect(rentButton.hasClass('active')).toBeTruthy();
+      })
+
+      test('buy button doesnt have active class when listingType=Rent', () => {
+        expect(buyButton.hasClass('active')).not.toBeTruthy();
+      });
     })
+  })
 })
 
