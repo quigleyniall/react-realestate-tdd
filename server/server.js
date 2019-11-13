@@ -9,7 +9,7 @@ api.use(bodyParser.urlencoded({ extended: true }));
 api.use(bodyParser.json({ limit: '5mb' }));
 
 api.get('/:type/:location', async (req, res) => {
-  const { location, type } = req.params;
+  const { type, location } = req.params;
   const request = await axios.get(`
     https://api.nestoria.co.uk/api?encoding=json&pretty=1&action=search_listings&country=uk&listing_type=${type}&place_name=${location}
   `);
