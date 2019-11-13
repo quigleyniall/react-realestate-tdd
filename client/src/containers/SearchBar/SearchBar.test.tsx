@@ -27,6 +27,7 @@ describe('search listing action creator called', () => {
   let searchListingMock;
   let wrapper;
   const location = 'London';
+  const listingType = 'rent';
 
   beforeEach(() => {
     searchListingMock = jest.fn();
@@ -36,7 +37,7 @@ describe('search listing action creator called', () => {
     }
 
     wrapper = shallow(<UnconnectedSearchBar {...props} />);
-    wrapper.setState({ location });
+    wrapper.setState({ location, listingType });
     const submitButton = findByTestAttr(wrapper, 'search-button');
     submitButton.simulate('click');
   });
@@ -45,8 +46,13 @@ describe('search listing action creator called', () => {
     expect(searchListingMock.mock.calls.length).toBe(1);
   });
 
+  test('correct listingType is passed to function', () => {
+    const listingTypeArg = searchListingMock.mock.calls[0][0];
+    expect(listingTypeArg).toBe(listingType);
+  })
+
   test('correct location is passed to function', () => {
-    const searchListingArg = searchListingMock.mock.calls[0][0];
+    const searchListingArg = searchListingMock.mock.calls[0][1];
     expect(searchListingArg).toBe(location);
   });
 
@@ -59,14 +65,14 @@ describe('test button group', () => {
   describe('rent button clicked', () => {
     test('rent button has active class', () => {
       const wrapper = setup();
-      wrapper.setState({ listingType: 'Rent' });
+      wrapper.setState({ listingType: 'rent' });
       const rentButton = findByTestAttr(wrapper, 'rent-button');
       expect(rentButton.hasClass('active')).toBeTruthy();
     })
 
     test('buy button has no active class', () => {
       const wrapper = setup();
-      wrapper.setState({ listingType: 'Rent' });
+      wrapper.setState({ listingType: 'rent' });
       const buyButton = findByTestAttr(wrapper, 'buy-button');
       expect(buyButton.hasClass('active')).not.toBeTruthy();
     })
@@ -74,14 +80,14 @@ describe('test button group', () => {
   describe('buy button clicked', () => {
     test('buy button has active class', () => {
       const wrapper = setup();
-      wrapper.setState({ listingType: 'Buy' });
+      wrapper.setState({ listingType: 'buy' });
       const buyButton = findByTestAttr(wrapper, 'buy-button');
       expect(buyButton.hasClass('active')).toBeTruthy();
     })
 
     test('rent button has no active class', () => {
       const wrapper = setup();
-      wrapper.setState({ listingType: 'Buy' });
+      wrapper.setState({ listingType: 'buy' });
       const rentButton = findByTestAttr(wrapper, 'rent-button');
       expect(rentButton.hasClass('active')).not.toBeTruthy();
     })

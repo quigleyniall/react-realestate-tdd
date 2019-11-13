@@ -4,11 +4,15 @@ import './App.css';
 import PropertyListing from './containers/PropertyListings/PropertyListing';
 
 const App = () => (
-  <div data-test="app" className="row">
-    <div className="col-md-12">
+  <div data-test="app" className="container">
+    <div className="row">
+      <div className="col-md-12 p-5">
       <SearchBar />
-      <PropertyListing />
     </div>
+    <div className="p-1">
+      <PropertyListing />
+    </div>  
+    </div> 
   </div>
 );
 

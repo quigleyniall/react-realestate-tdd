@@ -16,7 +16,7 @@ export class UnconnectedSearchBar extends React.Component<IProps, IState> {
     super(props);
     this.state = {
       location: '',
-      listingType: 'Rent'
+      listingType: 'rent'
     };
   }
   
@@ -25,8 +25,8 @@ export class UnconnectedSearchBar extends React.Component<IProps, IState> {
   };
 
   handleSubmit = async () => {
-    const { location } = this.state;
-    await this.props.searchListings(location);
+    const { listingType, location } = this.state;
+    await this.props.searchListings(listingType, location);
     this.setState({ location: '' });    
   };
 
@@ -39,19 +39,19 @@ export class UnconnectedSearchBar extends React.Component<IProps, IState> {
               <button 
               type="button"
               data-test="rent-button"
-              className={listingType === 'Rent' ? (
+              className={listingType === 'rent' ? (
                 "btn btn-outline-primary border active") : ("btn btn-outline-primary border")
               }
-              onClick={() => this.setState({ listingType: 'Rent'})}>
+              onClick={() => this.setState({ listingType: 'rent'})}>
                 Rent
               </button>
               <button 
               type="button" 
               data-test="buy-button"
-              className={listingType === 'Buy' ? (
+              className={listingType === 'buy' ? (
                 "btn btn-outline-primary border active") : ("btn btn-outline-primary border")
               }
-              onClick={() => this.setState({ listingType: 'Buy'})}>
+              onClick={() => this.setState({ listingType: 'buy'})}>
                 Buy
               </button>
             </div>

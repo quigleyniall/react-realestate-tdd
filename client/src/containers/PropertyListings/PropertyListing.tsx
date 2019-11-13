@@ -20,7 +20,11 @@ export class UnconnectedPropertyListing extends React.Component<IProps> {
   
   render() {
     return (
-      <div data-test="listing-results">{this.renderSearchResults()}</div>
+      <div data-test="listing-results" className="container">
+        <div className="row d-flex justify-content-between">
+          {this.renderSearchResults()}
+        </div>
+      </div>
     );
   }
 }

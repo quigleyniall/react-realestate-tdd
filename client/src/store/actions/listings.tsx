@@ -6,8 +6,8 @@ export const api = axios.create({
   timeout: 10000
 });
 
-export const searchListings = (location) => dispatch => {
-  return api.get(`/${location}`)
+export const searchListings = (type, location) => dispatch => {
+  return api.get(`/${type}/${location}`)
     .then((res) => {
       dispatch({
         type: ActionTypes.search,
