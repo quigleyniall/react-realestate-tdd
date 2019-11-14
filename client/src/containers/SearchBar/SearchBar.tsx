@@ -1,22 +1,14 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { searchListings } from '../../store/actions';
 import history from '../../router/history';
 import Button from '../../components/Button';
-
-interface IProps {
-  searchListings: Function;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  store?: any;
-}
 
 interface IState {
   location: string;
   listingType: string;
 }
 
-export class UnconnectedSearchBar extends React.Component<IProps, IState> {
-  constructor(props: IProps) {
+export class SearchBar extends React.Component<{}, IState> {
+  constructor(props) {
     super(props);
     this.state = {
       location: '',
@@ -30,8 +22,6 @@ export class UnconnectedSearchBar extends React.Component<IProps, IState> {
 
   handleSubmit = async () => {
     const { listingType, location } = this.state;
-    // await this.props.searchListings(listingType, location);
-    // this.setState({ location: '' });
     history.push(`/listings/${listingType}/${location}`);
   };
 
@@ -95,4 +85,4 @@ export class UnconnectedSearchBar extends React.Component<IProps, IState> {
   }
 }
 
-export default connect(null, { searchListings })(UnconnectedSearchBar);
+export default SearchBar;
