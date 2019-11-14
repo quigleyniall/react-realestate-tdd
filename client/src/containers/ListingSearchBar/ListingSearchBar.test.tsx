@@ -2,7 +2,7 @@ import ListingSearchBar from './ListingSearchBar';
 import { checkProps } from '../../test/testUtils';
 
 test('check props', () => {
-  const expectedProps = { onChange: jest.fn(), location: 'London'}
+  const expectedProps = { handleChange: jest.fn(), location: 'London'}
   checkProps(ListingSearchBar, expectedProps);
 })
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import Listings from './Listings';
+import Listings, { UnconnectedListings } from './Listings';
 import { findByTestAttr, storeFactory } from '../../test/testUtils';
 import { sampleResponse } from '../../test/sampleResponse';
 
@@ -11,7 +11,7 @@ const setup = (initialState = {}) => {
   const props = {
       match: { params: { type, location } },
   }
-  return shallow(<Listings store={storeFactory(initialState)} {...props} />)
+  return shallow(<Listings store={storeFactory(initialState)} {...props} />).dive().dive()
 };
 
 describe('on mount', () => {
@@ -20,11 +20,13 @@ describe('on mount', () => {
 
   beforeEach(() => {
     searchListingsMock = jest.fn();
-    const initialState = {
+    const props = {
       searchListings: searchListingsMock,
-      listings: []
+      listings: [],
+      match: { params: { type, location } },
     }
-    wrapper = setup(initialState);
+
+    wrapper = shallow(<UnconnectedListings {...props} />);
     wrapper.instance().componentDidMount();
   });
 
@@ -38,38 +40,28 @@ describe('on mount', () => {
   });
 
   test('correct location arg is passed to func', () => {
-    const listingArg = searchListingsMock.mock.calls[0][0];
+    const listingArg = searchListingsMock.mock.calls[0][1];
     expect(listingArg).toBe(location)
   });
 
-  test('set location in state', () => {
-    wrapper.state('location').toBe(location);
-  });
-
-  test('set listing type in state', () => {
-    expect(wrapper.state('listingType')).toBe(type)
+  test('input box is preloaded with location', () => {
+    wrapper.setState({ location });
+    const searchInput = findByTestAttr(wrapper, 'listing-search-input').dive();    
+    expect(searchInput.props().children.props.value).toBe(location)
   })
 })
 
 describe('redux props', () => {
   test('has access to listings props', () => {
-    const wrapper = setup({ listing: [sampleResponse] });
+    const wrapper: any = setup({ listings: [sampleResponse] });
     const listingProp = wrapper.instance().props.listings;
-    expect(listingProp).toBe([sampleResponse]);
+    expect(listingProp).toEqual([sampleResponse]);
   });
 
   test("search listing action is a function prop", () => {    
-    const wrapper = setup();
+    const wrapper: any = setup();
     const searchListingsProp = wrapper.instance().props.searchListings;
     expect(searchListingsProp).toBeInstanceOf(Function);
-  })
-})
-
-describe('search bar', () => {
-  test('input box is preloaded with location', () => {
-    const wrapper = setup();
-    const searchInput = findByTestAttr(wrapper, 'listing-search-input').dive();
-    expect(searchInput.props().value).toBe(location)
   })
 })
 

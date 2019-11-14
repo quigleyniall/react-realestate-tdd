@@ -1,7 +1,7 @@
 describe('renders listings', () => {
-  test('makes api call on mount', () => {
-    cy.visit('http://localhost:3000/listing/buy/london');
+  it('makes api call on mount', () => {
+    cy.visit('http://localhost:3000/listings/buy/London');
     cy.wait(10000);
-    cy.contains('london');
+    cy.contains('London');
   })
 })
