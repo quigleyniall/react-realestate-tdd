@@ -46,8 +46,8 @@ describe('on mount', () => {
 
   test('input box is preloaded with location', () => {
     wrapper.setState({ location });
-    const searchInput = findByTestAttr(wrapper, 'listing-search-input').dive();    
-    expect(searchInput.props().children.props.value).toBe(location)
+    const searchInput = findByTestAttr(wrapper, 'listing-search-input').dive();     
+    expect(searchInput.props().children[0].props.value).toBe(location)
   })
 })
 
@@ -62,6 +62,20 @@ describe('redux props', () => {
     const wrapper: any = setup();
     const searchListingsProp = wrapper.instance().props.searchListings;
     expect(searchListingsProp).toBeInstanceOf(Function);
+  })
+});
+
+describe('renders without error', () => {
+  test('renders listing search input', () => {
+    const wrapper = setup();
+    const searchInput = findByTestAttr(wrapper, 'listing-search-input');
+    expect(searchInput.length).toBe(1);
+  })
+
+  test('renders properties', () => {
+    const wrapper = setup();
+    const propertyListing = findByTestAttr(wrapper, 'property-listings');
+    expect(propertyListing.length).toBe(1);
   })
 })
 

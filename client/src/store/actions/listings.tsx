@@ -16,7 +16,6 @@ export interface SearchListingsAction {
 export const searchListings = (type: string, location: string) => {
   return async (dispatch: Dispatch) => {
     const response = await api.get(`/${type}/${location}`);
-
     dispatch<SearchListingsAction>({
       type: ActionTypes.search,
       payload: response.data.response.listings

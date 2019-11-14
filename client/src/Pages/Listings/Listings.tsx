@@ -5,6 +5,7 @@ import PropertyListing from '../../containers/PropertyListings';
 import { searchListings } from '../../store/actions';
 import { StoreState } from '../../store/rootReducer';
 import { ListingResponse } from '../../interfaces';
+import history from '../../router/history';
 
 interface IProps {
   match: { params: { type: string; location: string } };
@@ -38,6 +39,13 @@ export class UnconnectedListings extends React.Component<IProps, IState> {
     this.setState({ location: event.currentTarget.value });
   };
 
+  handleSearch = async () => {
+    const { type, location } = this.state;
+    const { searchListings } = this.props;
+    await searchListings(type, location);
+    history.push(`/listings/${type}/${location}`);
+  };
+
   render() {
     const { location } = this.state;
     return (
@@ -46,14 +54,17 @@ export class UnconnectedListings extends React.Component<IProps, IState> {
           data-test="listing-search-input"
           handleChange={this.handleChange}
           location={location}
+          onPress={this.handleSearch}
         />
-        <PropertyListing />
+        <PropertyListing data-test="property-listings" />
       </div>
     );
   }
 }
 
-const mapStateToProps = ({ listings }: StoreState) => ({ listings });
+const mapStateToProps = ({
+  listings
+}: StoreState): { listings: ListingResponse[] } => ({ listings });
 
 export default connect(mapStateToProps, { searchListings })(
   UnconnectedListings
