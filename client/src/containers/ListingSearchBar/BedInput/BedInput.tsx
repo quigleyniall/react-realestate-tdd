@@ -13,6 +13,7 @@ interface IProps {
 interface IState {
   activeDropDown: boolean;
   type: string;
+  exact: boolean;
 }
 
 class BedInput extends React.Component<IProps, IState> {
@@ -20,12 +21,13 @@ class BedInput extends React.Component<IProps, IState> {
     super(props);
     this.state = {
       activeDropDown: false,
-      type: ''
+      type: '',
+      exact: false
     };
   }
 
   render() {
-    const { activeDropDown } = this.state;
+    const { activeDropDown, exact } = this.state;
     const { btnTest, btnText, btnClass, click } = this.props;
     return (
       <div
@@ -41,12 +43,39 @@ class BedInput extends React.Component<IProps, IState> {
           <div className="p-4">
             <p>Bedrooms</p>
             <div className="d-flex">
-              <Button test="one-bed" text="1+" onPress={click('1')} />
-              <Button test="two-bed" text="2+" onPress={click('2')} />
-              <Button test="three-bed" text="3+" onPress={click('3')} />
-              <Button test="four-bed" text="4+" onPress={click('4')} />
-              <Button test="five-bed" text="5+" onPress={click('5')} />
+              <Button
+                test="one-bed"
+                text={exact ? '1' : '1+'}
+                onPress={click(exact ? '1' : '1+')}
+              />
+              <Button
+                test="two-bed"
+                text={exact ? '2' : '2+'}
+                onPress={click(exact ? '2' : '2+')}
+              />
+              <Button
+                test="three-bed"
+                text={exact ? '3' : '3+'}
+                onPress={click(exact ? '3' : '3+')}
+              />
+              <Button
+                test="four-bed"
+                text={exact ? '4' : '4+'}
+                onPress={click(exact ? '4' : '4+')}
+              />
+              <Button
+                test="five-bed"
+                text={exact ? '5' : '5+'}
+                onPress={click(exact ? '5' : '5+')}
+              />
             </div>
+            <Button
+              test="exact-bed"
+              text="Exact"
+              onPress={() =>
+                this.setState(prevState => ({ exact: !prevState.exact }))
+              }
+            />
           </div>
         </div>
       </div>

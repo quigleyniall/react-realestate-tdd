@@ -13,6 +13,7 @@ interface IProps {
 interface IState {
   activeDropDown: boolean;
   type: string;
+  exact: boolean;
 }
 
 class BathInput extends React.Component<IProps, IState> {
@@ -20,7 +21,8 @@ class BathInput extends React.Component<IProps, IState> {
     super(props);
     this.state = {
       activeDropDown: false,
-      type: ''
+      type: '',
+      exact: false
     };
   }
 
@@ -29,7 +31,7 @@ class BathInput extends React.Component<IProps, IState> {
   };
 
   render() {
-    const { activeDropDown } = this.state;
+    const { activeDropDown, exact } = this.state;
     const { btnTest, btnText, btnClass, click } = this.props;
     return (
       <div
@@ -45,12 +47,39 @@ class BathInput extends React.Component<IProps, IState> {
           <div className="p-4">
             <p>Bathrooms</p>
             <div className="d-flex">
-              <Button test="one-bath" text="1+" onPress={click('1+')} />
-              <Button test="two-bath" text="2+" onPress={click('2+')} />
-              <Button test="three-bath" text="3+" onPress={click('3+')} />
-              <Button test="four-bath" text="4+" onPress={click('4+')} />
-              <Button test="five-bath" text="5+" onPress={click('5+')} />
+              <Button
+                test="one-bath"
+                text={exact ? '1' : '1+'}
+                onPress={click(exact ? '1' : '1+')}
+              />
+              <Button
+                test="two-bath"
+                text={exact ? '2' : '2+'}
+                onPress={click(exact ? '2' : '2+')}
+              />
+              <Button
+                test="three-bath"
+                text={exact ? '3' : '3+'}
+                onPress={click(exact ? '3' : '3+')}
+              />
+              <Button
+                test="four-bath"
+                text={exact ? '4' : '4+'}
+                onPress={click(exact ? '4' : '4+')}
+              />
+              <Button
+                test="five-bath"
+                text={exact ? '5' : '5+'}
+                onPress={click(exact ? '5' : '5+')}
+              />
             </div>
+            <Button
+              test="exact-bath"
+              text="Exact"
+              onPress={() =>
+                this.setState(prevState => ({ exact: !prevState.exact }))
+              }
+            />
           </div>
         </div>
       </div>
