@@ -4,14 +4,14 @@ import '../ListingSearchBar.scss';
 
 interface IProps {
   btnTest: string;
-  btnText?: string;
+  btnText: string;
   btnClass: string;
   click: (param: any) => any;
 }
 
 interface IState {
   activeDropDown: boolean;
-  type: string;
+  btnText: string;
 }
 
 class TypeInput extends React.Component<IProps, IState> {
@@ -19,19 +19,24 @@ class TypeInput extends React.Component<IProps, IState> {
     super(props);
     this.state = {
       activeDropDown: false,
-      type: ''
+      btnText: ''
     };
   }
 
-  setType = type => {
+  componentDidMount() {
+    this.setState({ btnText: this.props.btnText });
+  }
+
+  setType = (type: string) => {
     const { click } = this.props;
     this.setState({ activeDropDown: false });
     click(type);
+    this.setState({ btnText: type });
   };
 
   render() {
-    const { activeDropDown } = this.state;
-    const { btnTest, btnClass, btnText, click } = this.props;
+    const { activeDropDown, btnText } = this.state;
+    const { btnTest, btnClass } = this.props;
     return (
       <div
         className="dropdown-wrapper"

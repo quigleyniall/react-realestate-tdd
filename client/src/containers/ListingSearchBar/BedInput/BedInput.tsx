@@ -24,10 +24,6 @@ class BedInput extends React.Component<IProps, IState> {
     };
   }
 
-  setType = (type: string) => () => {
-    this.setState({ type, activeDropDown: false });
-  };
-
   render() {
     const { activeDropDown } = this.state;
     const { btnTest, btnText, btnClass, click } = this.props;

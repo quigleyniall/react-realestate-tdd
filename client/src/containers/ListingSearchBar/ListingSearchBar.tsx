@@ -51,6 +51,8 @@ export class UnconnectedListingSearchBar extends React.Component<
     // this.props.initialize({ location });
     this.props.dispatch(change('searchbar', 'location', location));
     this.props.dispatch(change('searchbar', 'type', type));
+    this.props.dispatch(change('searchbar', 'priceMin', '0'));
+    this.props.dispatch(change('searchbar', 'priceMax', '1000000'));
     searchListings();
   }
 
@@ -60,6 +62,7 @@ export class UnconnectedListingSearchBar extends React.Component<
   };
 
   render() {
+    const { type } = this.props.match.params;
     return (
       <form className="d-flex mt-2 mb-2 p-2 border-top border-bottom">
         <div className="col-md-4">
@@ -77,7 +80,7 @@ export class UnconnectedListingSearchBar extends React.Component<
             <TypeInput
               btnClass="btn"
               btnTest="type"
-              btnText="Type"
+              btnText={type}
               click={param => props.input.onChange(param)}
             />
           )}
