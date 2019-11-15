@@ -8,12 +8,15 @@ interface IProps {
   btnText: string;
   btnClass: string;
   click: (param: any) => any;
+  urlBathMin: string;
+  urlBathMax: string;
 }
 
 interface IState {
   activeDropDown: boolean;
   type: string;
   exact: boolean;
+  bath: string;
 }
 
 class BathInput extends React.Component<IProps, IState> {
@@ -22,24 +25,42 @@ class BathInput extends React.Component<IProps, IState> {
     this.state = {
       activeDropDown: false,
       type: '',
-      exact: false
+      exact: false,
+      bath: ''
     };
   }
 
-  setType = (type: string) => () => {
-    this.setState({ type, activeDropDown: false });
+  componentDidMount() {
+    const { urlBathMax, urlBathMin, click } = this.props;
+    if (urlBathMin !== urlBathMax) {
+      click(`${urlBathMin}+`);
+      return this.setState({ bath: `${urlBathMin}+` });
+    }
+
+    click(`${urlBathMin}`);
+    return this.setState({ bath: `${urlBathMin}`, exact: true });
+  }
+
+  setBaths = (bath: string) => {
+    const { click } = this.props;
+    click(bath);
+    this.setState({ bath });
   };
 
   render() {
-    const { activeDropDown, exact } = this.state;
-    const { btnTest, btnText, btnClass, click } = this.props;
+    const { activeDropDown, exact, bath } = this.state;
+    const { btnTest, btnText, btnClass } = this.props;
     return (
       <div
         className="dropdown-wrapper"
         onMouseEnter={() => this.setState({ activeDropDown: true })}
         onMouseLeave={() => this.setState({ activeDropDown: false })}
       >
-        <Button test={btnTest} text={btnText} btnClass={btnClass} />
+        <Button
+          test={btnTest}
+          text={bath.length ? `${btnText} ${bath}` : btnText}
+          btnClass={btnClass}
+        />
         <div
           className={activeDropDown ? 'dropdown show' : 'dropdown hide'}
           style={{ width: '300px' }}
@@ -50,27 +71,27 @@ class BathInput extends React.Component<IProps, IState> {
               <Button
                 test="one-bath"
                 text={exact ? '1' : '1+'}
-                onPress={click(exact ? '1' : '1+')}
+                onPress={() => this.setBaths(exact ? '1' : '1+')}
               />
               <Button
                 test="two-bath"
                 text={exact ? '2' : '2+'}
-                onPress={click(exact ? '2' : '2+')}
+                onPress={() => this.setBaths(exact ? '2' : '2+')}
               />
               <Button
                 test="three-bath"
                 text={exact ? '3' : '3+'}
-                onPress={click(exact ? '3' : '3+')}
+                onPress={() => this.setBaths(exact ? '3' : '3+')}
               />
               <Button
                 test="four-bath"
                 text={exact ? '4' : '4+'}
-                onPress={click(exact ? '4' : '4+')}
+                onPress={() => this.setBaths(exact ? '4' : '4+')}
               />
               <Button
                 test="five-bath"
                 text={exact ? '5' : '5+'}
-                onPress={click(exact ? '5' : '5+')}
+                onPress={() => this.setBaths(exact ? '5' : '5+')}
               />
             </div>
             <Button

@@ -6,12 +6,10 @@ import { reduxForm, Field, change } from 'redux-form';
 import queryString from 'query-string';
 import Button from '../../components/Button';
 import { searchListings } from '../../store/actions';
-import history from '../../router/history';
 import TypeInput from './TypeInput/TypeInput';
 import PriceInput from './PriceInput/PriceInput';
 import BedInput from './BedInput/BedInput';
 import BathInput from './BathInput/BathInput';
-import { StoreState } from '../../store/rootReducer';
 
 interface IState {
   activeDropDown: string;
@@ -26,11 +24,7 @@ interface IProps {
   searchListings: Function;
   listingType: string;
   setFormValues: Function;
-  form: any;
   dispatch: any;
-  initialValues?: any;
-  setInitialValues: any;
-  initialize: any;
   location: any;
 }
 
@@ -69,6 +63,7 @@ export class UnconnectedListingSearchBar extends React.Component<
 
   render() {
     const { type } = this.props.match.params;
+    const values = queryString.parse(this.props.location.search);
     return (
       <form className="d-flex mt-2 mb-2 p-2 border-top border-bottom">
         <div className="col-md-4">
@@ -93,23 +88,27 @@ export class UnconnectedListingSearchBar extends React.Component<
         />
         <PriceInput btnClass="btn" btnTest="type" btnText="Price" />
         <Field
-          name="Bedrooms"
+          name="bedrooms"
           component={props => (
             <BedInput
               btnClass="btn"
               btnTest="type"
               btnText="Bedrooms"
+              urlBedMin={values.bedMin ? values.bedMin.toString() : ''}
+              urlBedMax={values.bedMax ? values.bedMax.toString() : ''}
               click={param => props.input.onChange(param)}
             />
           )}
         />
         <Field
-          name="Bathrooms"
+          name="bathrooms"
           component={props => (
             <BathInput
               btnClass="btn"
               btnTest="type"
               btnText="Bathrooms"
+              urlBathMin={values.bathMin ? values.bathMin.toString() : ''}
+              urlBathMax={values.bathMax ? values.bathMax.toString() : ''}
               click={param => props.input.onChange(param)}
             />
           )}
