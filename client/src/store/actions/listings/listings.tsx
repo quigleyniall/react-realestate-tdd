@@ -19,13 +19,30 @@ export const searchListings = () => {
   return async (dispatch: Dispatch) => {
     const state = Store.getState();
     const { values } = state.form.searchbar;
-    const { type, location } = values;
-    const response = await api.get(`/${type}/${location}`);
+    const {
+      type,
+      location,
+      priceMin,
+      priceMax,
+      bedMin,
+      bedMax,
+      bathMax,
+      bathMin
+    } = values;
+
+    const url = `/${type}/${location}?priceMin=${
+      priceMin ? priceMin : 0
+    }&priceMax=${priceMax ? priceMax : 10000000}&bedMin=${
+      bedMin ? bedMin : 1
+    }&bedMax=${bedMax ? bedMax : 20}&bathMin=${bathMin ? bathMin : 1}&bathMax=${
+      bathMax ? bathMax : 20
+    }`;
+    const response = await api.get(url);
 
     dispatch<SearchListingsAction>({
       type: ActionTypes.search,
       payload: response.data.response.listings
     });
-    history.push(`/listings/${type}/${location}`);
+    history.push(`/listings${url}`);
   };
 };

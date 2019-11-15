@@ -3,6 +3,7 @@ import { withRouter } from 'react-router';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
 import { reduxForm, Field, change } from 'redux-form';
+import queryString from 'query-string';
 import Button from '../../components/Button';
 import { searchListings } from '../../store/actions';
 import history from '../../router/history';
@@ -30,6 +31,7 @@ interface IProps {
   initialValues?: any;
   setInitialValues: any;
   initialize: any;
+  location: any;
 }
 
 export class UnconnectedListingSearchBar extends React.Component<
@@ -46,13 +48,17 @@ export class UnconnectedListingSearchBar extends React.Component<
 
   componentDidMount() {
     const { type, location } = this.props.match.params;
+    const values = queryString.parse(this.props.location.search);
     const { searchListings } = this.props;
 
-    // this.props.initialize({ location });
     this.props.dispatch(change('searchbar', 'location', location));
     this.props.dispatch(change('searchbar', 'type', type));
-    this.props.dispatch(change('searchbar', 'priceMin', '0'));
-    this.props.dispatch(change('searchbar', 'priceMax', '1000000'));
+    this.props.dispatch(change('searchbar', 'priceMin', values.priceMin));
+    this.props.dispatch(change('searchbar', 'priceMax', values.priceMax));
+    this.props.dispatch(change('searchbar', 'bedMin', values.bedMin));
+    this.props.dispatch(change('searchbar', 'bedMax', values.bedMax));
+    this.props.dispatch(change('searchbar', 'bathMax', values.bathMax));
+    this.props.dispatch(change('searchbar', 'bathMin', values.bathMin));
     searchListings();
   }
 
