@@ -1,9 +1,7 @@
 import { SearchListingsAction } from './listings/listings';
-import { InitialiseFormAction } from './initialiseForm/initialiseForm';
 
 export enum ActionTypes {
-  search,
-  initialiseForm
+  search
 }
 
-export type Action = SearchListingsAction | InitialiseFormAction;
+export type Action = SearchListingsAction;

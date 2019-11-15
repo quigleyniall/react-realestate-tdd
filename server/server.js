@@ -13,7 +13,7 @@ api.get('/:type/:location', async (req, res) => {
   const request = await axios.get(`
     https://api.nestoria.co.uk/api?encoding=json&pretty=1&action=search_listings&country=uk&listing_type=${type}&place_name=${location}
   `);
-  const response = await request.data;  
+  const response = await request.data;
   return res.json(response);
 })
 

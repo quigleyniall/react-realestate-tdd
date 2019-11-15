@@ -2,14 +2,15 @@ import React from 'react';
 import { withRouter } from 'react-router';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
-import { reduxForm, Field } from 'redux-form';
+import { reduxForm, Field, change } from 'redux-form';
 import Button from '../../components/Button';
-import { searchListings, setFormValues } from '../../store/actions';
+import { searchListings } from '../../store/actions';
 import history from '../../router/history';
 import TypeInput from './TypeInput/TypeInput';
 import PriceInput from './PriceInput/PriceInput';
 import BedInput from './BedInput/BedInput';
 import BathInput from './BathInput/BathInput';
+import { StoreState } from '../../store/rootReducer';
 
 interface IState {
   activeDropDown: string;
@@ -24,6 +25,11 @@ interface IProps {
   searchListings: Function;
   listingType: string;
   setFormValues: Function;
+  form: any;
+  dispatch: any;
+  initialValues?: any;
+  setInitialValues: any;
+  initialize: any;
 }
 
 export class UnconnectedListingSearchBar extends React.Component<
@@ -40,18 +46,17 @@ export class UnconnectedListingSearchBar extends React.Component<
 
   componentDidMount() {
     const { type, location } = this.props.match.params;
-    const { searchListings, setFormValues } = this.props;
-    setFormValues({ location });
-    searchListings(location);
+    const { searchListings } = this.props;
+
+    // this.props.initialize({ location });
+    this.props.dispatch(change('searchbar', 'location', location));
+    this.props.dispatch(change('searchbar', 'type', type));
+    searchListings();
   }
 
-  handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({ [event.target.name]: event.currentTarget.value });
-  };
-
   handleSearch = async () => {
-    const { location } = this.state;
-    await searchListings(location);
+    const { searchListings } = this.props;
+    searchListings();
   };
 
   render() {
@@ -111,19 +116,16 @@ export class UnconnectedListingSearchBar extends React.Component<
   }
 }
 
-const mapStateToProps = ({ setInitialValues }) => ({
-  initialValues: setInitialValues.data
-});
-
 // export const TestListingSearchBar = connect(mapStateToProps, {
 //   searchListings,
 //   setListingType
 // })(UnconnectedListingSearchBar);
 
+const ReduxForm = reduxForm({
+  form: 'searchbar'
+})(UnconnectedListingSearchBar);
+
 export default compose(
   withRouter,
-  connect(mapStateToProps, { searchListings, setFormValues }),
-  reduxForm({
-    form: 'searchbar'
-  })
-)(UnconnectedListingSearchBar);
+  connect(null, { searchListings })
+)(ReduxForm);

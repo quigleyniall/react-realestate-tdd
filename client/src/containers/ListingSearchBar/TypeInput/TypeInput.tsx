@@ -23,6 +23,12 @@ class TypeInput extends React.Component<IProps, IState> {
     };
   }
 
+  setType = type => {
+    const { click } = this.props;
+    this.setState({ activeDropDown: false });
+    click(type);
+  };
+
   render() {
     const { activeDropDown } = this.state;
     const { btnTest, btnClass, btnText, click } = this.props;
@@ -38,10 +44,13 @@ class TypeInput extends React.Component<IProps, IState> {
           style={{ width: '300px' }}
         >
           <ul className="list-group">
-            <li className="list-group-item" onClick={click('buy')}>
+            <li className="list-group-item" onClick={() => this.setType('buy')}>
               Buy
             </li>
-            <li className="list-group-item" onClick={click('rent')}>
+            <li
+              className="list-group-item"
+              onClick={() => this.setType('rent')}
+            >
               Rent
             </li>
           </ul>
