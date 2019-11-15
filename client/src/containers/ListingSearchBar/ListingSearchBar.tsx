@@ -2,10 +2,14 @@ import React from 'react';
 import { withRouter } from 'react-router';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
+import { reduxForm, Field } from 'redux-form';
 import Button from '../../components/Button';
-import DropDown from '../../components/DropDown';
-import { searchListings } from '../../store/actions';
+import { searchListings, setFormValues } from '../../store/actions';
 import history from '../../router/history';
+import TypeInput from './TypeInput/TypeInput';
+import PriceInput from './PriceInput/PriceInput';
+import BedInput from './BedInput/BedInput';
+import BathInput from './BathInput/BathInput';
 
 interface IState {
   activeDropDown: string;
@@ -18,6 +22,8 @@ interface IProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   store?: any;
   searchListings: Function;
+  listingType: string;
+  setFormValues: Function;
 }
 
 export class UnconnectedListingSearchBar extends React.Component<
@@ -34,77 +40,90 @@ export class UnconnectedListingSearchBar extends React.Component<
 
   componentDidMount() {
     const { type, location } = this.props.match.params;
-    const { searchListings } = this.props;
-    searchListings(type, location);
-    this.setState({ type, location });
+    const { searchListings, setFormValues } = this.props;
+    setFormValues({ location });
+    searchListings(location);
   }
-
-  setType = (type: string) => {
-    this.setState({ type });
-  };
-
-  renderAdditionalInputs = () => {
-    const { activeDropDown } = this.state;
-    return (
-      <div style={{ position: 'relative' }}>
-        <Button
-          test="listing-search"
-          text="Search"
-          btnClass="primary"
-          onPress={() => this.setState({ activeDropDown: 'listing' })}
-        />
-        <DropDown
-          type="dropDownList"
-          data={['buy', 'rent']}
-          display={activeDropDown === 'listing'}
-          click={this.setType}
-        />
-      </div>
-    );
-  };
 
   handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({ [event.target.name]: event.currentTarget.value });
   };
 
   handleSearch = async () => {
-    const { listingType, location } = this.state;
-    const { searchListings } = this.props;
-    await searchListings(listingType, location);
-    history.push(`/listings/${listingType}/${location}`);
+    const { location } = this.state;
+    await searchListings(location);
   };
 
   render() {
-    const { location } = this.state;
     return (
-      <div className="d-flex mt-2 mb-2 p-2 border-top border-bottom">
+      <form className="d-flex mt-2 mb-2 p-2 border-top border-bottom">
         <div className="col-md-4">
-          <input
-            type="text"
-            data-test="listing-search-input"
-            onChange={this.handleChange}
+          <Field
             name="location"
-            value={location}
+            component="input"
+            type="text"
+            placeholder="Location"
             className="mr-2 form-control"
           />
         </div>
-        {this.renderAdditionalInputs()}
+        <Field
+          name="type"
+          component={props => (
+            <TypeInput
+              btnClass="btn"
+              btnTest="type"
+              btnText="Type"
+              click={param => props.input.onChange(param)}
+            />
+          )}
+        />
+        <PriceInput btnClass="btn" btnTest="type" btnText="Price" />
+        <Field
+          name="Bedrooms"
+          component={props => (
+            <BedInput
+              btnClass="btn"
+              btnTest="type"
+              btnText="Bedrooms"
+              click={param => props.input.onChange(param)}
+            />
+          )}
+        />
+        <Field
+          name="Bathrooms"
+          component={props => (
+            <BathInput
+              btnClass="btn"
+              btnTest="type"
+              btnText="Bathrooms"
+              click={param => props.input.onChange(param)}
+            />
+          )}
+        />
         <Button
           test="listing-search"
           text="Search"
           btnClass="primary"
           onPress={this.handleSearch}
         />
-      </div>
+      </form>
     );
   }
 }
 
-export const TestListingSearchBar = connect(null, { searchListings })(
-  UnconnectedListingSearchBar
-);
+const mapStateToProps = ({ setInitialValues }) => ({
+  initialValues: setInitialValues.data
+});
+
+// export const TestListingSearchBar = connect(mapStateToProps, {
+//   searchListings,
+//   setListingType
+// })(UnconnectedListingSearchBar);
 
 export default compose(
   withRouter,
-  connect(null, { searchListings })
+  connect(mapStateToProps, { searchListings, setFormValues }),
+  reduxForm({
+    form: 'searchbar'
+  })
 )(UnconnectedListingSearchBar);

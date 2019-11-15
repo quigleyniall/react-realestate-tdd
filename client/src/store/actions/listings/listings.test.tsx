@@ -1,7 +1,7 @@
 import moxios from 'moxios';
 import { searchListings, api } from './listings';
-import { storeFactory } from '../../test/testUtils';
-import { sampleResponse } from '../../test/sampleResponse';
+import { storeFactory } from '../../../test/testUtils';
+import { sampleResponse } from '../../../test/sampleResponse';
 
 describe('searches api', () => {
   beforeEach(() => {
@@ -21,7 +21,7 @@ describe('searches api', () => {
       });
     });
 
-    return store.dispatch(searchListings('buy', 'london')).then(() => {
+    return store.dispatch(searchListings('london')).then(() => {
       const newState = store.getState();
       expect(newState.listings).toEqual(sampleResponse.response.listings);
     });
