@@ -29,9 +29,8 @@ class TypeInput extends React.Component<IProps, IState> {
 
   setType = (type: string) => {
     const { click } = this.props;
-    this.setState({ activeDropDown: false });
+    this.setState({ activeDropDown: false, btnText: type });
     click(type);
-    this.setState({ btnText: type });
   };
 
   render() {
