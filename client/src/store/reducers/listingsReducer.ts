@@ -1,9 +1,9 @@
-import { ActionTypes, Action } from '../actions';
+import { SEARCH, Action } from '../actions';
 import { ListingResponse } from '../../interfaces';
 
-const listingsReducer = (state: ListingResponse[] = [], action: Action) => {
+const listingsReducer = (state = [], action) => {
   switch (action.type) {
-    case ActionTypes.search:
+    case SEARCH:
       return action.payload;
     default:
       return state;

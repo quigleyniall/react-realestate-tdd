@@ -5,6 +5,7 @@ interface IProps {
   onPress?: () => void;
   onMouseEnter?: () => void;
   onMouseLeave?: () => void;
+  type?: 'submit' | 'button';
   text: string;
   active?: boolean;
   btnClass?: string;
@@ -18,11 +19,12 @@ const Button = ({
   btnClass,
   test,
   onMouseEnter,
-  onMouseLeave
+  onMouseLeave,
+  type
 }: IProps) => (
   <button
     data-test={`${test}-button`}
-    type="button"
+    type={type}
     className={active ? `btn btn-${btnClass} active` : `btn btn-${btnClass}`}
     style={{ textTransform: 'capitalize' }}
     onClick={onPress}
@@ -32,6 +34,10 @@ const Button = ({
     {text}
   </button>
 );
+
+Button.defaultProps = {
+  type: 'button'
+};
 
 Button.propTypes = {
   onPress: PropTypes.func,

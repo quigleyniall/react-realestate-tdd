@@ -20,12 +20,10 @@ interface IState {
 interface IProps {
   match?: { params: { type: string; location: string } };
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  store?: any;
   searchListings: Function;
-  listingType: string;
-  setFormValues: Function;
   dispatch: any;
   location: any;
+  handleSubmit: any;
 }
 
 export class UnconnectedListingSearchBar extends React.Component<
@@ -53,19 +51,36 @@ export class UnconnectedListingSearchBar extends React.Component<
     this.props.dispatch(change('searchbar', 'bedMax', values.bedMax));
     this.props.dispatch(change('searchbar', 'bathMax', values.bathMax));
     this.props.dispatch(change('searchbar', 'bathMin', values.bathMin));
-    searchListings();
+
+    const req = {
+      location,
+      type,
+      priceMin: values.priceMin ? values.priceMin : 0,
+      priceMax: values.priceMax ? values.priceMax : 10000000,
+      bedMin: values.bedMin ? values.bedMin : 0,
+      bedMax: values.bedMax ? values.bedMax : 20,
+      bathMax: values.bathMax ? values.bathMax : 20,
+      bathMin: values.bathMin ? values.bathMin : 0
+    };
+    searchListings(req);
   }
 
-  handleSearch = async () => {
+  handleSearch = async () => {};
+
+  submit = values => {
     const { searchListings } = this.props;
-    searchListings();
+    searchListings(values);
   };
 
   render() {
     const { type } = this.props.match.params;
+    const { handleSubmit } = this.props;
     const values = queryString.parse(this.props.location.search);
     return (
-      <form className="d-flex mt-2 mb-2 p-2 border-top border-bottom">
+      <form
+        className="d-flex mt-2 mb-2 p-2 border-top border-bottom"
+        onSubmit={handleSubmit(this.submit)}
+      >
         <div className="col-md-4">
           <Field
             name="location"
@@ -117,21 +132,20 @@ export class UnconnectedListingSearchBar extends React.Component<
           test="listing-search"
           text="Search"
           btnClass="primary"
-          onPress={this.handleSearch}
+          type="submit"
         />
       </form>
     );
   }
 }
 
-// export const TestListingSearchBar = connect(mapStateToProps, {
-//   searchListings,
-//   setListingType
-// })(UnconnectedListingSearchBar);
-
 const ReduxForm = reduxForm({
   form: 'searchbar'
 })(UnconnectedListingSearchBar);
+
+export const TestListingSearchBar = connect(null, { searchListings })(
+  ReduxForm
+);
 
 export default compose(
   withRouter,

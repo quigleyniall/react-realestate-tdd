@@ -8,7 +8,7 @@ const type = 'buy';
 
 const setup = (initialState = {}) => {
   const props = {
-      match: { params: { type, location } },
+      match: { params: { type, location } }
   }
   return shallow(<TestListingSearchBar store={storeFactory(initialState)} {...props} />).dive();
 };

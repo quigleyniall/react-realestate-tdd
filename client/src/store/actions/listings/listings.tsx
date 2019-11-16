@@ -1,9 +1,10 @@
 import axios from 'axios';
 import { Dispatch } from 'redux';
-import { ActionTypes } from '../types';
-import Store from '../../';
+// import { ActionTypes } from '../types';
+import store from '../..';
 import { ListingResponse } from '../../../interfaces';
 import history from '../../../router/history';
+import { SEARCH } from '../types';
 
 export const api = axios.create({
   baseURL: 'http://localhost:8080/',
@@ -11,14 +12,12 @@ export const api = axios.create({
 });
 
 export interface SearchListingsAction {
-  type: ActionTypes.search;
+  type: string;
   payload: ListingResponse[] | [];
 }
 
-export const searchListings = () => {
+export const searchListings = values => {
   return async (dispatch: Dispatch) => {
-    const state = Store.getState();
-    const { values } = state.form.searchbar;
     const { type, location, priceMin, priceMax, bedrooms, bathrooms } = values;
     let bathMin;
     let bathMax;
@@ -62,7 +61,7 @@ export const searchListings = () => {
     const response = await api.get(url);
 
     dispatch<SearchListingsAction>({
-      type: ActionTypes.search,
+      type: SEARCH,
       payload: response.data.response.listings
     });
     history.push(`/listings${url}`);
