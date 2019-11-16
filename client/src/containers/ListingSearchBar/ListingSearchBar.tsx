@@ -11,12 +11,6 @@ import PriceInput from './PriceInput/PriceInput';
 import BedInput from './BedInput/BedInput';
 import BathInput from './BathInput/BathInput';
 
-interface IState {
-  activeDropDown: string;
-  type: string;
-  [x: string]: string;
-}
-
 interface IProps {
   match?: { params: { type: string; location: string } };
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -26,18 +20,7 @@ interface IProps {
   handleSubmit: any;
 }
 
-export class UnconnectedListingSearchBar extends React.Component<
-  IProps,
-  IState
-> {
-  constructor(props) {
-    super(props);
-    this.state = {
-      activeDropDown: '',
-      type: 'rent'
-    };
-  }
-
+export class UnconnectedListingSearchBar extends React.Component<IProps> {
   componentDidMount() {
     const { type, location } = this.props.match.params;
     const values = queryString.parse(this.props.location.search);
@@ -56,7 +39,7 @@ export class UnconnectedListingSearchBar extends React.Component<
       location,
       type,
       priceMin: values.priceMin ? values.priceMin : 0,
-      priceMax: values.priceMax ? values.priceMax : 10000000,
+      priceMax: values.priceMax ? values.priceMax : 1000000000,
       bedMin: values.bedMin ? values.bedMin : 0,
       bedMax: values.bedMax ? values.bedMax : 20,
       bathMax: values.bathMax ? values.bathMax : 20,
@@ -64,8 +47,6 @@ export class UnconnectedListingSearchBar extends React.Component<
     };
     searchListings(req);
   }
-
-  handleSearch = async () => {};
 
   submit = values => {
     const { searchListings } = this.props;
