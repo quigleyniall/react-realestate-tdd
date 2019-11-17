@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 interface IProps {
-  onPress?: () => void;
+  onPress?: (some?: any) => void;
   onMouseEnter?: () => void;
   onMouseLeave?: () => void;
   type?: 'submit' | 'button';

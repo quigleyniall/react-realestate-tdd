@@ -1,6 +1,5 @@
 import React from 'react';
-import Button from '../../../components/Button';
-import '../ListingSearchBar.scss';
+import DropDown from '../../../components/Dropdown';
 
 interface IProps {
   btnTest: string;
@@ -9,59 +8,25 @@ interface IProps {
   click: (param: any) => any;
 }
 
-interface IState {
-  activeDropDown: boolean;
-  btnText: string;
-}
-
-class TypeInput extends React.Component<IProps, IState> {
-  constructor(props) {
-    super(props);
-    this.state = {
-      activeDropDown: false,
-      btnText: ''
-    };
-  }
-
-  componentDidMount() {
-    this.setState({ btnText: this.props.btnText });
-  }
-
-  setType = (type: string) => {
-    const { click } = this.props;
-    this.setState({ activeDropDown: false, btnText: type });
-    click(type);
-  };
-
-  render() {
-    const { activeDropDown, btnText } = this.state;
-    const { btnTest, btnClass } = this.props;
-    return (
-      <div
-        className="dropdown-wrapper"
-        onMouseEnter={() => this.setState({ activeDropDown: true })}
-        onMouseLeave={() => this.setState({ activeDropDown: false })}
-      >
-        <Button test={btnTest} text={btnText} btnClass={btnClass} />
-        <div
-          className={activeDropDown ? 'dropdown show' : 'dropdown hide'}
-          style={{ width: '300px' }}
-        >
-          <ul className="list-group">
-            <li className="list-group-item" onClick={() => this.setType('buy')}>
-              Buy
-            </li>
-            <li
-              className="list-group-item"
-              onClick={() => this.setType('rent')}
-            >
-              Rent
-            </li>
-          </ul>
-        </div>
-      </div>
-    );
-  }
-}
+const TypeInput = ({ btnTest, btnText, btnClass, click }) => (
+  <DropDown btnClass={btnClass} btnTest={btnTest} btnText={btnText} render={({closeDropDown, changeBtnText}) => (
+    <ul className="list-group">
+      <li className="list-group-item" onClick={() => {
+         closeDropDown();
+         changeBtnText('Buy');
+         click('buy')
+      }}>
+         Buy
+       </li>
+       <li className="list-group-item" onClick={() => {
+         closeDropDown();
+         changeBtnText('Rent');
+        click('rent')
+      }}>
+         Rent
+       </li>
+     </ul>         
+  )} />         
+)
 
 export default TypeInput;

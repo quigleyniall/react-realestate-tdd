@@ -1,5 +1,7 @@
 import { SearchListingsAction } from './listings/listings';
 
-export const SEARCH = 'SEARCH';
+export enum ActionTypes {
+  search
+}
 
 export type Action = SearchListingsAction;

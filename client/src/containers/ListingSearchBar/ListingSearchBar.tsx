@@ -8,8 +8,8 @@ import Button from '../../components/Button';
 import { searchListings } from '../../store/actions';
 import TypeInput from './TypeInput/TypeInput';
 import PriceInput from './PriceInput/PriceInput';
-import BedInput from './BedInput/BedInput';
 import BathInput from './BathInput/BathInput';
+import BedInput from './BedInput/BedInput';
 
 interface IProps {
   match?: { params: { type: string; location: string } };
@@ -62,7 +62,7 @@ export class UnconnectedListingSearchBar extends React.Component<IProps> {
         className="d-flex mt-2 mb-2 p-2 border-top border-bottom"
         onSubmit={handleSubmit(this.submit)}
       >
-        <div className="col-md-4">
+        <div className="col-md-4">          
           <Field
             name="location"
             component="input"
@@ -80,9 +80,10 @@ export class UnconnectedListingSearchBar extends React.Component<IProps> {
               btnText={type}
               click={param => props.input.onChange(param)}
             />
-          )}
-        />
-        <PriceInput btnClass="btn" btnTest="type" btnText="Price" />
+          )} />
+        <PriceInput btnClass="btn"
+              btnTest="type"
+              btnText="Price" />
         <Field
           name="bedrooms"
           component={props => (
@@ -90,8 +91,8 @@ export class UnconnectedListingSearchBar extends React.Component<IProps> {
               btnClass="btn"
               btnTest="type"
               btnText="Bedrooms"
-              urlBedMin={values.bedMin ? values.bedMin.toString() : ''}
-              urlBedMax={values.bedMax ? values.bedMax.toString() : ''}
+              urlMin={values.bedMin ? values.bedMin.toString() : ''}
+              urlMax={values.bedMax ? values.bedMax.toString() : ''}
               click={param => props.input.onChange(param)}
             />
           )}
@@ -100,13 +101,13 @@ export class UnconnectedListingSearchBar extends React.Component<IProps> {
           name="bathrooms"
           component={props => (
             <BathInput
-              btnClass="btn"
-              btnTest="type"
-              btnText="Bathrooms"
-              urlBathMin={values.bathMin ? values.bathMin.toString() : ''}
-              urlBathMax={values.bathMax ? values.bathMax.toString() : ''}
-              click={param => props.input.onChange(param)}
-            />
+            btnClass="btn"
+            btnTest="type"
+            btnText="Bathrooms"
+            urlMin={values.bathMin ? values.bathMin.toString() : ''}
+            urlMax={values.bathMax ? values.bathMax.toString() : ''}
+            click={param => props.input.onChange(param)}
+          />
           )}
         />
         <Button

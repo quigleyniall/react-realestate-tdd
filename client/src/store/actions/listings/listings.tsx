@@ -1,10 +1,8 @@
 import axios from 'axios';
 import { Dispatch } from 'redux';
-// import { ActionTypes } from '../types';
-import store from '../..';
+import { ActionTypes } from '../types';
 import { ListingResponse } from '../../../interfaces';
 import history from '../../../router/history';
-import { SEARCH } from '../types';
 
 export const api = axios.create({
   baseURL: 'http://localhost:8080/',
@@ -12,7 +10,7 @@ export const api = axios.create({
 });
 
 export interface SearchListingsAction {
-  type: string;
+  type: ActionTypes.search;
   payload: ListingResponse[] | [];
 }
 
@@ -61,7 +59,7 @@ export const searchListings = values => {
     const response = await api.get(url);
 
     dispatch<SearchListingsAction>({
-      type: SEARCH,
+      type: ActionTypes.search,
       payload: response.data.response.listings
     });
     history.push(`/listings${url}`);
