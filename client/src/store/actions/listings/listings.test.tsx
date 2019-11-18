@@ -3,7 +3,7 @@ import { searchListings, api } from './listings';
 import { storeFactory } from '../../../test/testUtils';
 import { sampleResponse } from '../../../test/sampleResponse';
 
-describe.skip('searches api', () => {
+describe('searches api', () => {
   beforeEach(() => {
     moxios.install(api);
   });
@@ -21,7 +21,8 @@ describe.skip('searches api', () => {
       });
     });
 
-    return store.dispatch(searchListings()).then(() => {
+    const values = {};
+    return store.dispatch(searchListings(values)).then(() => {
       const newState = store.getState();
       expect(newState.listings).toEqual(sampleResponse.response.listings);
     });

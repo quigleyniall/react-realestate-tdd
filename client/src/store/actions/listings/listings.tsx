@@ -56,12 +56,13 @@ export const searchListings = values => {
       bathMax ? bathMax : 20
     }`;
 
+    history.push(`/listings${url}`);
+
     const response = await api.get(url);
 
     dispatch<SearchListingsAction>({
       type: ActionTypes.search,
       payload: response.data.response.listings
     });
-    history.push(`/listings${url}`);
   };
 };

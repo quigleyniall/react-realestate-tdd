@@ -32,12 +32,12 @@ class DropDown extends React.Component<IProps, IState> {
   };
 
   openDropDown = () => {
-    this.setState({ activeDropDown: true })
-  }
+    this.setState({ activeDropDown: true });
+  };
 
   closeDropDown = () => {
-    this.setState({ activeDropDown: false })
-  }
+    this.setState({ activeDropDown: false });
+  };
 
   render() {
     const { activeDropDown, btnText } = this.state;
@@ -53,7 +53,10 @@ class DropDown extends React.Component<IProps, IState> {
           className={activeDropDown ? 'dropdown show' : 'dropdown hide'}
           style={{ width: '300px' }}
         >
-         {this.props.render({ closeDropDown: this.closeDropDown, changeBtnText: this.changeBtnText})}
+          {this.props.render({
+            closeDropDown: this.closeDropDown,
+            changeBtnText: this.changeBtnText
+          })}
         </div>
       </div>
     );
