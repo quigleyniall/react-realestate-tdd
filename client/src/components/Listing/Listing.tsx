@@ -7,11 +7,17 @@ import { faBed, faBath } from '@fortawesome/free-solid-svg-icons';
 
 interface ListingProps {
   listing: ListingResponse;
+  setActiveListing: Function;
 }
 
-const Listing = ({ listing }: ListingProps) => {
+const Listing = ({ listing, setActiveListing }: ListingProps) => {
   return (
-    <div className="card" style={{ width: '15rem', marginBottom: '2rem' }}>
+    <div
+      className="card"
+      style={{ width: '15rem', marginBottom: '2rem', cursor: 'pointer' }}
+      onMouseEnter={() => setActiveListing(listing)}
+      onMouseLeave={() => setActiveListing({})}
+    >
       <img
         src={listing.img_url}
         className="card-img-top"

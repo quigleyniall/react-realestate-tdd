@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import GoogleMapReact, { Maps, MapOptions } from 'google-map-react';
 import { ListingResponse } from '../../interfaces';
+import { selectListing } from '../../store/actions';
 import { Marker } from './Marker/Marker';
 import './Map.scss';
 import { StoreState } from '../../store/rootReducer';
@@ -9,6 +10,8 @@ import { StoreState } from '../../store/rootReducer';
 interface MapProps {
   store?: any;
   listings: ListingResponse[];
+  selectedListing: ListingResponse;
+  selectListing: Function;
 }
 
 interface MapState {
@@ -56,13 +59,9 @@ class MapWithMarkers extends React.Component<MapProps, MapState> {
     }
   };
 
-  setActiveListing = (listing: ListingResponse) => {
-    this.setState({ activeListing: listing });
-  };
-
   renderMarkers = () => {
-    const { activeListing } = this.state;
-    const { listings } = this.props;
+    const { listings, selectedListing, selectListing } = this.props;
+    console.log(selectedListing);
     return listings.map((listing, index) => (
       <Marker
         key={index}
@@ -70,8 +69,8 @@ class MapWithMarkers extends React.Component<MapProps, MapState> {
         lat={+listing.latitude}
         lng={+listing.longitude}
         listing={listing}
-        activeListing={activeListing}
-        setActiveListing={this.setActiveListing}
+        activeListing={selectedListing}
+        setActiveListing={selectListing}
       />
     ));
   };
@@ -130,6 +129,9 @@ class MapWithMarkers extends React.Component<MapProps, MapState> {
   }
 }
 
-const mapStateToProps = ({ listings }: StoreState) => ({ listings });
+const mapStateToProps = ({ listings, selectedListing }: StoreState) => ({
+  listings,
+  selectedListing
+});
 
-export default connect(mapStateToProps)(MapWithMarkers);
+export default connect(mapStateToProps, { selectListing })(MapWithMarkers);

@@ -1,7 +1,7 @@
 import { ListingResponse } from '../../interfaces';
 import { Action, ActionTypes } from '../actions';
 
-const selectListing = (state: ListingResponse | {} = {}, action: Action) => {
+const selectedListing = (state: ListingResponse | {} = {}, action: Action) => {
   switch (action.type) {
     case ActionTypes.select:
       return action.payload;
@@ -10,4 +10,4 @@ const selectListing = (state: ListingResponse | {} = {}, action: Action) => {
   }
 };
 
-export default selectListing;
+export default selectedListing;

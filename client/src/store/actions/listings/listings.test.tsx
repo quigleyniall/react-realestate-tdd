@@ -33,7 +33,7 @@ describe('searches api', () => {
 test('selects a listing from results', () => {
     const store = storeFactory({ listings: sampleResponse.response.listings });
     store.dispatch(selectListing(sampleResponse.response.listings[0]));
-    const selectedListing = store.getState().selectListing;
+    const selectedListing = store.getState().selectedListing;
     expect(selectedListing).toEqual(sampleResponse.response.listings[0]);
 })
 

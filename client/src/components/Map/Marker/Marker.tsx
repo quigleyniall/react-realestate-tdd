@@ -19,8 +19,10 @@ export const Marker: React.FC<Marker> = ({
     className={listing === activeListing ? 'circle' : 'circle z-index-low'}
     role="presentation"
     onMouseEnter={() => setActiveListing(listing)}
-    onMouseLeave={() => setActiveListing()}
+    onMouseLeave={() => setActiveListing({})}
   >
-    {listing === activeListing ? <Listing listing={listing} /> : null}
+    {listing === activeListing ? (
+      <Listing listing={listing} setActiveListing={setActiveListing} />
+    ) : null}
   </div>
 );
