@@ -2,7 +2,6 @@ import React from 'react';
 import Dropdown from '../../../components/Dropdown';
 import BathDropdown from './BathDropdown';
 
-
 interface IProps {
   btnTest: string;
   btnText: string;
@@ -10,17 +9,22 @@ interface IProps {
   click: (param: any) => any;
   urlMin: string;
   urlMax: string;
-  changeBtnText: any;
 }
 
-interface IState {
-  exact: boolean;
-}
-
-const BathInput = ({ btnTest, btnText, btnClass, click, urlMin, urlMax }) => (
-      <Dropdown btnClass={btnClass} btnTest={btnTest} btnText={btnText} render={({closeDropDown, changeBtnText}) => (
-        <BathDropdown urlMin={urlMin} urlMax={urlMax} click={click} changeBtnText={changeBtnText} />        
-    )} />
-    );
+const BathInput = (props: IProps) => (
+  <Dropdown
+    btnClass={props.btnClass}
+    btnTest={props.btnTest}
+    btnText={props.btnText}
+    render={({ changeBtnText }) => (
+      <BathDropdown
+        urlMin={props.urlMin}
+        urlMax={props.urlMax}
+        click={props.click}
+        changeBtnText={changeBtnText}
+      />
+    )}
+  />
+);
 
 export default BathInput;

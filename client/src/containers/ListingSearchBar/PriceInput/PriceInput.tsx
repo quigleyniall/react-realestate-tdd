@@ -8,30 +8,34 @@ interface IProps {
   btnClass: string;
 }
 
-const PriceInput = ({ btnTest, btnText, btnClass }) => (
-      <Dropdown btnClass={btnClass} btnTest={btnTest} btnText={btnText} render={({closeDropDown, changeBtnText}) => (
-          <div className="p-4">
-            <p>Price Range</p>
-            <div className="d-flex justify-content-around align-items-center">
-              <Field
-                name="priceMin"
-                component="input"
-                type="text"
-                placeholder="Min"
-                className="mr-2 form-control"
-              />
-              &nbsp;-&nbsp;
-              <Field
-                name="priceMax"
-                component="input"
-                type="text"
-                placeholder="Max"
-                className="mr-2 form-control"
-              />
-            </div>
-          </div>
-      )}
-    />
+const PriceInput = (props: IProps) => (
+  <Dropdown
+    btnClass={props.btnClass}
+    btnTest={props.btnTest}
+    btnText={props.btnText}
+    render={() => (
+      <div className="p-4">
+        <p>Price Range</p>
+        <div className="d-flex justify-content-around align-items-center">
+          <Field
+            name="priceMin"
+            component="input"
+            type="text"
+            placeholder="Min"
+            className="mr-2 form-control"
+          />
+          &nbsp;-&nbsp;
+          <Field
+            name="priceMax"
+            component="input"
+            type="text"
+            placeholder="Max"
+            className="mr-2 form-control"
+          />
+        </div>
+      </div>
+    )}
+  />
 );
 
 export default PriceInput;
