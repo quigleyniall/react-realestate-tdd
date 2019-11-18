@@ -14,6 +14,11 @@ export interface SearchListingsAction {
   payload: ListingResponse[] | [];
 }
 
+export interface SelectListingsAction {
+  type: ActionTypes.select;
+  payload: ListingResponse;
+}
+
 export const searchListings = values => {
   return async (dispatch: Dispatch) => {
     const { type, location, priceMin, priceMax, bedrooms, bathrooms } = values;
@@ -66,3 +71,8 @@ export const searchListings = values => {
     });
   };
 };
+
+export const selectListing = (listing): SelectListingsAction => ({
+  type: ActionTypes.select,
+  payload: listing
+});

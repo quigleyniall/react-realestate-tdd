@@ -1,7 +1,11 @@
-import { SearchListingsAction } from './listings/listings';
+import {
+  SearchListingsAction,
+  SelectListingsAction
+} from './listings/listings';
 
 export enum ActionTypes {
-  search
+  search,
+  select
 }
 
-export type Action = SearchListingsAction;
+export type Action = SearchListingsAction | SelectListingsAction;

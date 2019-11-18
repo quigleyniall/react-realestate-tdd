@@ -32,9 +32,7 @@ export class UnconnectedPropertyListing extends React.Component<IProps> {
   }
 }
 
-const mapStateToProps = ({
-  listings
-}: StoreState): { listings: ListingResponse[] } => ({
+const mapStateToProps = ({ listings }: StoreState) => ({
   listings
 });
 

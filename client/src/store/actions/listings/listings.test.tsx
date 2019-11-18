@@ -1,5 +1,5 @@
 import moxios from 'moxios';
-import { searchListings, api } from './listings';
+import { searchListings, api, selectListing } from './listings';
 import { storeFactory } from '../../../test/testUtils';
 import { sampleResponse } from '../../../test/sampleResponse';
 
@@ -28,3 +28,12 @@ describe('searches api', () => {
     });
   });
 });
+
+
+test('selects a listing from results', () => {
+    const store = storeFactory({ listings: sampleResponse.response.listings });
+    store.dispatch(selectListing(sampleResponse.response.listings[0]));
+    const selectedListing = store.getState().selectListing;
+    expect(selectedListing).toEqual(sampleResponse.response.listings[0]);
+})
+

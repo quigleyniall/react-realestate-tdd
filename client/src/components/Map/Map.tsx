@@ -16,6 +16,7 @@ interface MapState {
     lat: number;
     lng: number;
   };
+  activeListing: ListingResponse | boolean;
 }
 
 class MapWithMarkers extends React.Component<MapProps, MapState> {
@@ -25,7 +26,8 @@ class MapWithMarkers extends React.Component<MapProps, MapState> {
       center: {
         lat: 51.5343,
         lng: 0.099356
-      }
+      },
+      activeListing: false
     };
   }
 
@@ -54,7 +56,12 @@ class MapWithMarkers extends React.Component<MapProps, MapState> {
     }
   };
 
+  setActiveListing = (listing: ListingResponse) => {
+    this.setState({ activeListing: listing });
+  };
+
   renderMarkers = () => {
+    const { activeListing } = this.state;
     const { listings } = this.props;
     return listings.map((listing, index) => (
       <Marker
@@ -62,6 +69,9 @@ class MapWithMarkers extends React.Component<MapProps, MapState> {
         data-test="marker"
         lat={+listing.latitude}
         lng={+listing.longitude}
+        listing={listing}
+        activeListing={activeListing}
+        setActiveListing={this.setActiveListing}
       />
     ));
   };
