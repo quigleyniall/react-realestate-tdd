@@ -44,12 +44,14 @@ class DropDown extends React.Component<IProps, IState> {
     const { btnTest, btnClass } = this.props;
     return (
       <div
+        data-test="dropdown-wrapper"
         className="dropdown-wrapper"
         onMouseEnter={this.openDropDown}
         onMouseLeave={this.closeDropDown}
       >
         <Button test={btnTest} text={btnText} btnClass={btnClass} />
         <div
+          data-test="dropdown"
           className={activeDropDown ? 'dropdown show' : 'dropdown hide'}
           style={{ width: '300px' }}
         >

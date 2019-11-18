@@ -21,6 +21,7 @@ describe('on mount', () => {
     searchListingsMock = jest.fn();
     handleSubmitMock = jest.fn();
     changeMock = jest.fn();
+    
     const props = {
       searchListings: searchListingsMock,
       location: { search },
