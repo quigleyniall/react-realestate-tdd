@@ -62,6 +62,7 @@ export class UnconnectedListingSearchBar extends React.Component<IProps> {
       <form
         className="d-flex mt-2 mb-2 p-2 border-top border-bottom"
         onSubmit={handleSubmit(this.submit)}
+        style={{ height: '60px' }}
       >
         <div className="col-md-4">
           <Field

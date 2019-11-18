@@ -11,7 +11,7 @@ interface ListingProps {
 
 const Listing = ({ listing }: ListingProps) => {
   return (
-    <div className="card" style={{ width: '20rem', marginBottom: '2rem' }}>
+    <div className="card" style={{ width: '15rem', marginBottom: '2rem' }}>
       <img
         src={listing.img_url}
         className="card-img-top"
