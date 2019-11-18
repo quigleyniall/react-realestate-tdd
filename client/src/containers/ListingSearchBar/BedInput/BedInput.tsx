@@ -6,7 +6,7 @@ interface IProps {
   btnTest: string;
   btnText: string;
   btnClass: string;
-  click: (param: any) => any;
+  click: (param: string) => string;
   urlMin: string;
   urlMax: string;
 }

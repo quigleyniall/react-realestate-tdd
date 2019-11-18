@@ -13,11 +13,11 @@ import BedInput from './BedInput/BedInput';
 
 interface IProps {
   match?: { params: { type: string; location: string } };
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   searchListings: Function;
-  change?: any;
+  change?: Function;
   location?: { search: string };
-  handleSubmit?: any;
+  handleSubmit?: Function;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   store?: any;
 }
 

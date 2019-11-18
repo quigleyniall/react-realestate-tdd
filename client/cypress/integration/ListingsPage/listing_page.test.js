@@ -1,5 +1,5 @@
 describe('renders listings', () => {
-  it.skip('makes api call on mount', () => {
+  it('makes api call on mount', () => {
     cy.visit('http://localhost:3000/listings/buy/London');
     cy.wait(10000);
     cy.contains('London');
@@ -9,7 +9,7 @@ describe('renders listings', () => {
     const location = 'Manchester';
     const priceMin = 500;
     const priceMax = 2000000;
-    
+
     cy.visit('http://localhost:3000/listings/buy/London');
     cy.get("[data-test='listing-search-input']").clear()
     cy.get("[data-test='listing-search-input']").type(location)

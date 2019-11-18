@@ -2,10 +2,10 @@ import React from 'react';
 import Button from '../../../components/Button';
 
 interface IProps {
-  click: (param: any) => any;
+  click: (param: string) => string;
   urlMin: string;
   urlMax: string;
-  changeBtnText: any;
+  changeBtnText: (x: string) => void;
 }
 
 interface IState {

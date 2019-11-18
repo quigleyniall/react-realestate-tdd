@@ -5,7 +5,7 @@ interface IProps {
   btnTest: string;
   btnText: string;
   btnClass: string;
-  click: (param: any) => any;
+  click: (param: string) => string;
 }
 
 const TypeInput = (props: IProps) => (
