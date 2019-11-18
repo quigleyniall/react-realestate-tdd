@@ -15,9 +15,10 @@ interface IProps {
   match?: { params: { type: string; location: string } };
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   searchListings: Function;
-  dispatch: any;
-  location: any;
-  handleSubmit: any;
+  change?: any;
+  location?: { search: string };
+  handleSubmit?: any;
+  store?: any;
 }
 
 export class UnconnectedListingSearchBar extends React.Component<IProps> {
@@ -26,14 +27,14 @@ export class UnconnectedListingSearchBar extends React.Component<IProps> {
     const values = queryString.parse(this.props.location.search);
     const { searchListings } = this.props;
 
-    this.props.dispatch(change('searchbar', 'location', location));
-    this.props.dispatch(change('searchbar', 'type', type));
-    this.props.dispatch(change('searchbar', 'priceMin', values.priceMin));
-    this.props.dispatch(change('searchbar', 'priceMax', values.priceMax));
-    this.props.dispatch(change('searchbar', 'bedMin', values.bedMin));
-    this.props.dispatch(change('searchbar', 'bedMax', values.bedMax));
-    this.props.dispatch(change('searchbar', 'bathMax', values.bathMax));
-    this.props.dispatch(change('searchbar', 'bathMin', values.bathMin));
+    this.props.change('searchbar', 'location', location);
+    this.props.change('searchbar', 'type', type);
+    this.props.change('searchbar', 'priceMin', values.priceMin);
+    this.props.change('searchbar', 'priceMax', values.priceMax);
+    this.props.change('searchbar', 'bedMin', values.bedMin);
+    this.props.change('searchbar', 'bedMax', values.bedMax);
+    this.props.change('searchbar', 'bathMax', values.bathMax);
+    this.props.change('searchbar', 'bathMin', values.bathMin);
 
     const req = {
       location,
@@ -62,8 +63,9 @@ export class UnconnectedListingSearchBar extends React.Component<IProps> {
         className="d-flex mt-2 mb-2 p-2 border-top border-bottom"
         onSubmit={handleSubmit(this.submit)}
       >
-        <div className="col-md-4">          
+        <div className="col-md-4">
           <Field
+            data-test="listing-search-input"
             name="location"
             component="input"
             type="text"
@@ -80,10 +82,9 @@ export class UnconnectedListingSearchBar extends React.Component<IProps> {
               btnText={type}
               click={param => props.input.onChange(param)}
             />
-          )} />
-        <PriceInput btnClass="btn"
-              btnTest="type"
-              btnText="Price" />
+          )}
+        />
+        <PriceInput btnClass="btn" btnTest="type" btnText="Price" />
         <Field
           name="bedrooms"
           component={props => (
@@ -101,16 +102,17 @@ export class UnconnectedListingSearchBar extends React.Component<IProps> {
           name="bathrooms"
           component={props => (
             <BathInput
-            btnClass="btn"
-            btnTest="type"
-            btnText="Bathrooms"
-            urlMin={values.bathMin ? values.bathMin.toString() : ''}
-            urlMax={values.bathMax ? values.bathMax.toString() : ''}
-            click={param => props.input.onChange(param)}
-          />
+              btnClass="btn"
+              btnTest="type"
+              btnText="Bathrooms"
+              urlMin={values.bathMin ? values.bathMin.toString() : ''}
+              urlMax={values.bathMax ? values.bathMax.toString() : ''}
+              click={param => props.input.onChange(param)}
+            />
           )}
         />
         <Button
+          data-test="listing-search"
           test="listing-search"
           text="Search"
           btnClass="primary"
@@ -121,15 +123,19 @@ export class UnconnectedListingSearchBar extends React.Component<IProps> {
   }
 }
 
-const ReduxForm = reduxForm({
+export const ReduxForm = reduxForm({
   form: 'searchbar'
 })(UnconnectedListingSearchBar);
 
-export const TestListingSearchBar = connect(null, { searchListings })(
+export const TestListingSearchBar = connect(null, { searchListings, change })(
   ReduxForm
 );
 
-export default compose(
-  withRouter,
-  connect(null, { searchListings })
-)(ReduxForm);
+export default reduxForm({
+  form: 'searchbar'
+})(
+  compose(
+    withRouter,
+    connect(null, { searchListings, change })
+  )(UnconnectedListingSearchBar)
+);

@@ -1,33 +1,41 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { UnconnectedListingSearchBar, TestListingSearchBar } from './ListingSearchBar';
+import { TestListingSearchBar, UnconnectedListingSearchBar } from './ListingSearchBar';
 import { findByTestAttr ,storeFactory } from '../../test/testUtils';
 
 const location = 'Manchester';
 const type = 'buy';
 
 const setup = (initialState = {}) => {
-  const props = {
-      match: { params: { type, location } }
-  }
-  return shallow(<TestListingSearchBar store={storeFactory(initialState)} {...props} />).dive();
+  return shallow(<TestListingSearchBar store={storeFactory(initialState)} />).dive().dive();
 };
 
-describe.skip('on mount', () => {
+describe('on mount', () => {
   let wrapper;
   let searchListingsMock;
+  let handleSubmitMock;
+  let changeMock;
+  let search = '?priceMin=0&priceMax=1000000000&bedMin=1&bedMax=20&bathMin=1&bathMax=20';
 
   beforeEach(() => {
     searchListingsMock = jest.fn();
+    handleSubmitMock = jest.fn();
+    changeMock = jest.fn();
     const props = {
       searchListings: searchListingsMock,
-      listings: [],
+      location: { search },
       match: { params: { type, location } },
+      handleSubmit: handleSubmitMock,
+      change: changeMock
     }
 
-    wrapper = shallow(<UnconnectedListingSearchBar {...props} />);
-    wrapper.instance().componentDidMount();
+    wrapper = shallow(<UnconnectedListingSearchBar {...props} />); 
+    wrapper.instance().componentDidMount();   
   });
+
+  test('change function to be called', () => {
+    expect(changeMock.mock.calls.length).toBe(8);
+  })
 
   test('search listing action is called', () => {
     expect(searchListingsMock.mock.calls.length).toBe(1);
@@ -35,26 +43,39 @@ describe.skip('on mount', () => {
 
   test('correct listing type arg is passed to func', () => {
     const listingArg = searchListingsMock.mock.calls[0][0];
-    expect(listingArg).toBe(type)
+    const expected =  { 
+      location: 'Manchester',
+      type: 'buy',
+      priceMin: '0',
+      priceMax: '1000000000',
+      bedMin: '1',
+      bedMax: '20',
+      bathMax: '20',
+      bathMin: '1'
+   }
+    expect(listingArg).toEqual(expected)
   });
 
-  test('correct location arg is passed to func', () => {
-    const listingArg = searchListingsMock.mock.calls[0][1];
-    expect(listingArg).toBe(location)
-  });
-
-  test('input box is preloaded with location', () => {
-    wrapper.setState({ location });
-    const searchInput = findByTestAttr(wrapper, 'listing-search-input');    
-    expect(searchInput.props().value).toBe(location)
+  describe('click the search button', () => {
+    test('submits the form ', () => {      
+      const submit = findByTestAttr(wrapper, 'listing-search');
+      submit.simulate('click');
+      expect(handleSubmitMock.mock.calls.length).toBe(1);      
+    })
   })
 })
 
-describe.skip('redux props', () => {
+describe('redux props', () => {
   test("search listing action is a function prop", () => {    
     const wrapper: any = setup();
     const searchListingsProp = wrapper.instance().props.searchListings;
     expect(searchListingsProp).toBeInstanceOf(Function);
+  })
+
+  test('change action is a function prop', () => {
+    const wrapper: any = setup();
+    const changeProp = wrapper.instance().props.change;
+    expect(changeProp).toBeInstanceOf(Function);
   })
 });
 
