@@ -22,5 +22,11 @@ describe('renders without error', () => {
     const wrapper = setup();
     const propertyListing = findByTestAttr(wrapper, 'property-listings');
     expect(propertyListing.length).toBe(1);
+  });
+
+  test('renders map', () => {
+    const wrapper = setup();
+    const map = findByTestAttr(wrapper, 'map');
+    expect(map.length).toBe(1);
   })
 })

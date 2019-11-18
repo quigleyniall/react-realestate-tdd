@@ -1,0 +1,47 @@
+.circle {
+  display: inline-block;
+  position: relative;
+  z-index: 10;
+  width: 8px;
+  height: 8px;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+  box-sizing: border-box;
+  background-clip: padding-box;
+  border: 1px solid rgb(28, 36, 65);
+  border-radius: 50%;
+  transition: all 0.3s cubic-bezier(0.39, 0.575, 0.565, 1) 0s;
+  background-color: #5A76DB;
+
+  &:hover {
+    box-shadow: white 0px 0px 0px 1px inset;
+    width: 24px;
+    height: 24px;
+    background-color: rgb(78, 103, 194);
+    border: 8px solid rgba(59, 80, 160, .6);   
+  }
+}
+
+.z-index-low {
+  z-index: 0;
+}
+
+.map-listing {
+  position: absolute;
+  left: -130px;
+  width: 220px;
+  border-radius: 5px;
+  background-color: #fff;
+  transform: translate(-50%, -50%);
+
+  & .listing-image {
+    height: 150px;
+  }
+
+  & .listing-image-container {
+    height: 150px;
+  }
+}
+
+
+
