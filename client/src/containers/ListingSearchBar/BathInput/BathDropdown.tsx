@@ -70,7 +70,7 @@ class BedDropdown extends React.Component<IProps, IState> {
           />
         </div>
         <Button
-          test="exact-bed"
+          test="exact-bath"
           text="Exact"
           onPress={() =>
             this.setState(prevState => ({ exact: !prevState.exact }))

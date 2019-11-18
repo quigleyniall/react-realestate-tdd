@@ -18,6 +18,7 @@ const PriceInput = (props: IProps) => (
         <p>Price Range</p>
         <div className="d-flex justify-content-around align-items-center">
           <Field
+            data-test="price-min"
             name="priceMin"
             component="input"
             type="text"
@@ -26,6 +27,7 @@ const PriceInput = (props: IProps) => (
           />
           &nbsp;-&nbsp;
           <Field
+            data-test="price-max"
             name="priceMax"
             component="input"
             type="text"

@@ -16,6 +16,7 @@ const TypeInput = (props: IProps) => (
     render={({ closeDropDown, changeBtnText }) => (
       <ul className="list-group">
         <li
+          data-test="buy-li"
           className="list-group-item"
           onClick={() => {
             closeDropDown();
@@ -26,6 +27,7 @@ const TypeInput = (props: IProps) => (
           Buy
         </li>
         <li
+          data-test="rent-li"
           className="list-group-item"
           onClick={() => {
             closeDropDown();
