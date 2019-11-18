@@ -6,7 +6,7 @@ interface IProps {
   btnTest: string;
   btnText: string;
   btnClass: string;
-  render: any;
+  render: Function;
 }
 
 interface IState {
