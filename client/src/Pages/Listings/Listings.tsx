@@ -2,11 +2,13 @@ import React from 'react';
 import ListingSearchBar from '../../containers/ListingSearchBar';
 import PropertyListing from '../../containers/PropertyListings';
 import Map from '../../components/Map';
+import Modal from '../../components/Modal/Modal';
 import './Listings.scss';
 
 const Listings = () => {
   return (
     <div data-test="listings" className="wrapper">
+      <Modal />
       <ListingSearchBar data-test="listing-search-input" />
       <div className="main-section">
         <div className="left-section">

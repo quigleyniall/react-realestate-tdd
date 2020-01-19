@@ -1,6 +1,6 @@
 src/serviceWorker.ts
-src/components/**/*.test.tsx
-src/containers/**/*.test.tsx
+# src/components/**/*.test.tsx
+# src/containers/**/*.test.tsx
 src/**/**/*.test.tsx
 src/Pages/**/*.test.tsx
 src/*.test.tsx
