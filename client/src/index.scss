@@ -1,0 +1,431 @@
+$grid-width: 1200px;
+
+// Line Height
+
+$base-line-height: 24px;
+
+// ==============
+// COLUMN GUTTERS
+// ==============
+
+// Column Gutters
+
+$gutter-small: 16px;
+$gutter-large: 32px;
+
+// BREAKPOINTS
+$breakpoint-small: 0;
+$breakpoint-medium: 640px;
+$breakpoint-large: 1024px;
+$breakpoint-xlarge: 1200px;
+$breakpoint-xxlarge: 1440px;
+
+// only
+$small-only: unquote('only screen and (max-width: #{$breakpoint-medium})');
+$medium-only: unquote(
+  'only screen and (min-width: #{$breakpoint-medium}) and (max-width: #{$breakpoint-large})'
+);
+$large-only: unquote(
+  'only screen and (min-width: #{$breakpoint-large}) and (max-width: #{$breakpoint-xlarge})'
+);
+$xlarge-only: unquote(
+  'only screen and (min-width: #{$breakpoint-xlarge}) and (max-width: #{$breakpoint-xxlarge})'
+);
+$xxlarge-only: unquote('only screen and (min-width: #{$breakpoint-xxlarge})');
+
+// up
+$medium-up: unquote('only screen and (min-width: #{$breakpoint-medium})');
+$large-up: unquote('only screen and (min-width: #{$breakpoint-large})');
+$xlarge-up: unquote('only screen and (min-width: #{$breakpoint-xlarge})');
+$xxlarge-up: unquote('only screen and (min-width: #{$breakpoint-xxlarge})');
+
+// down
+$small-down: unquote(
+  'only screen and (max-width: #{$breakpoint-medium})'
+); // this is the same as small-only
+$medium-down: unquote('only screen and (max-width: #{$breakpoint-large})');
+$large-down: unquote('only screen and (max-width: #{$breakpoint-xlarge})');
+$xlarge-down: unquote('only screen and (max-width: #{$breakpoint-xxlarge})');
+
+// ============
+// FONT WEIGHTS
+// ============
+
+$font-weight-normal: 400;
+$font-weight-medium: 500;
+$font-weight-bold: 900;
+
+// =====
+// FONTS
+// =====
+
+@font-face {
+  font-family: 'Gotham';
+  font-weight: $font-weight-normal;
+  src: local('Gotham Book'),
+    url('https://usit.s3.amazonaws.com/fonts/gotham-book-webfont.woff')
+      format('woff');
+}
+
+@font-face {
+  font-family: 'Gotham';
+  font-weight: $font-weight-medium;
+  src: local('Gotham Medium'),
+    url('https://usit.s3.amazonaws.com/fonts/gotham-medium-webfont.woff')
+      format('woff');
+}
+
+@font-face {
+  font-family: 'Gotham';
+  font-weight: $font-weight-bold;
+  src: local('Gotham Black'),
+    url('https://usit.s3.amazonaws.com/fonts/gotham-black-webfont.woff')
+      format('woff');
+}
+
+$body-font-family: 'Gotham', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+
+* {
+  font-family: $body-font-family;
+}
+
+// ========
+// HEADINGS
+// ========
+
+@for $i from 0 through 5 {
+  @for $j from 0 through 9 {
+    .typ-s-#{$i}-#{$j} {
+      font-size: 0rem + $i + ($j / 10) !important;
+      line-height: 1;
+    }
+  }
+}
+
+@for $i from 0 through 5 {
+  @for $j from 0 through 9 {
+    .typ-s-#{$i}-#{$j}-large {
+      @media #{$large-up} {
+        font-size: 0rem + $i + ($j / 10) !important;
+        line-height: 1;
+      }
+    }
+  }
+}
+
+@mixin main-container($grid: null) {
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+
+  @if $grid == grid {
+    width: $grid-width;
+    @include column-gutters();
+  } @else {
+    width: calc(#{$grid-width} + calc(#{$gutter-small}) * 2);
+    padding-left: $gutter-small;
+    padding-right: $gutter-small;
+    @media #{$large-up} {
+      width: calc(#{$grid-width} + calc(#{$gutter-large}) * 2);
+      padding-left: $gutter-large;
+      padding-right: $gutter-large;
+    }
+  }
+}
+
+@mixin column-gutters() {
+  grid-gap: $gutter-small;
+
+  @media #{$large-up} {
+    grid-gap: $gutter-large;
+  }
+}
+
+// Brand Colours
+
+$usit-pink: #b20f58;
+$usit-gold: #ffae38;
+$usit-charcoal: #1e1e1e;
+$usit-purple: #6956ab;
+$usit-green: #078f87;
+$usit-yellow: #fade4b;
+
+// Shades of Gray
+
+$gray-1: #111;
+$gray-2: #222;
+$gray-3: #333;
+$gray-4: #444;
+$gray-5: #555;
+$gray-6: #666;
+$gray-7: #777;
+$gray-8: #888;
+$gray-9: #999;
+$gray-a: #aaa;
+$gray-b: #bbb;
+$gray-c: #ccc;
+$gray-d: #ddd;
+$gray-e: #eee;
+
+// Shades of White
+
+$white-0: #f0f0f0;
+$white-1: #f1f1f1;
+$white-2: #f2f2f2;
+$white-3: #f3f3f3;
+$white-4: #f4f4f4;
+$white-5: #f5f5f5;
+$white-6: #f6f6f6;
+$white-7: #f7f7f7;
+$white-8: #f8f8f8;
+$white-9: #f9f9f9;
+$white-a: #fafafa;
+$white-b: #fbfbfb;
+$white-c: #fcfcfc;
+$white-d: #fdfdfd;
+$white-e: #fefefe;
+
+.banner {
+  width: 100%;
+  background-color: $usit-charcoal;
+  padding: 96px 0;
+
+  @media #{$large-down} {
+    padding: 32px 0;
+  }
+
+  &__container {
+    @include main-container();
+    position: relative;
+
+    @media #{$medium-down} {
+      top: -5px;
+    }
+  }
+
+  &__link {
+    width: 100%;
+  }
+
+  &__image-container {
+    position: relative;
+    width: 100%;
+    height: 270px;
+    overflow: hidden;
+  }
+
+  &__image {
+    width: 100%;
+    height: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 9;
+
+    &-position {
+      width: 100%;
+      position: relative;
+      top: -220px;
+      left: 100px;
+    }
+  }
+
+  &__image--mobile {
+    height: 250px;
+    width: 100%;
+    padding: 0 16px;
+    display: none;
+    object-fit: cover;
+
+    @media #{$medium-down} {
+      display: inline-block;
+    }
+
+    @media #{$small-down} {
+      height: 150px;
+    }
+  }
+
+  &__overlay {
+    width: 100%;
+    position: absolute;
+    clip-path: polygon(0 0, 65% 0%, 45% 100%, 0% 100%);
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+
+    background: #513393;
+    z-index: 10;
+    @media #{$large-down} {
+      clip-path: polygon(0 0, 70% 0%, 50% 100%, 0% 100%);
+    }
+
+    @media #{$medium-down} {
+      clip-path: polygon(0 0, 100% 0%, 100% 100%, 0% 100%);
+    }
+  }
+
+  &__info {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 20;
+    color: #fff;
+
+    &--details {
+      position: absolute;
+      top: 80px;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      width: 500px;
+      padding: 16px;
+
+      @media #{$small-down} {
+        width: auto;
+        top: 65px;
+      }
+    }
+  }
+
+  &__logo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 80px;
+
+    @media #{$small-down} {
+      height: 65px;
+    }
+  }
+
+  &__link {
+    position: relative;
+    top: 25px;
+    padding: 16px 32px;
+    outline: none;
+    color: #513393;
+    background: #fff;
+    font-weight: $font-weight-bold;
+    border-radius: 3px;
+
+    @media #{$small-down} {
+      top: 5px;
+      padding: 8px 16px;
+    }
+  }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: $font-weight-bold;
+  text-transform: uppercase;
+}
+
+h1,
+h2,
+h3 {
+  margin-bottom: 1rem;
+}
+
+h4,
+h5,
+h6 {
+  margin-bottom: 0.6rem;
+}
+
+h1 {
+  font-size: rem-calc(24);
+  @media #{$medium-up} {
+    font-size: rem-calc(56);
+  }
+}
+
+h2 {
+  font-size: rem-calc(23);
+  line-height: 1.2;
+  @media #{$medium-up} {
+    font-size: rem-calc(32);
+  }
+}
+
+h3 {
+  font-size: rem-calc(22);
+  line-height: 1.2;
+  @media #{$medium-up} {
+    font-size: rem-calc(30);
+  }
+}
+
+h4 {
+  font-size: rem-calc(20);
+  line-height: 1.2;
+  @media #{$medium-up} {
+    font-size: rem-calc(28);
+  }
+}
+
+h5 {
+  font-size: rem-calc(18);
+  line-height: 1.1;
+  @media #{$medium-up} {
+    font-size: rem-calc(26);
+  }
+}
+
+h6 {
+  font-size: rem-calc(16);
+  line-height: 1.1;
+  @media #{$medium-up} {
+    font-size: rem-calc(16);
+  }
+}
+
+// ==========
+// PARAGRAPHS
+// ==========
+
+p {
+  font-size: rem-calc(16);
+  line-height: rem-calc(24);
+  margin-bottom: 16px;
+  word-break: break-word;
+}
+
+// =====
+// LINKS
+// =====
+
+a {
+  color: black;
+
+  &:focus,
+  &:hover,
+  &:active {
+    color: $usit-pink;
+  }
+}
+
+// ===============
+// UTILITY CLASSES
+// ===============
+
+// FONT SIZES
+
+/*
+
+Usage
+
+<p class="typ-s-1-4"> --> will have font size 1.4rem
+<p class="typ-s-5-0"> --> will have font size 5rem
+
+*/
